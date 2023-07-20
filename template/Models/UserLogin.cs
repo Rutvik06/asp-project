@@ -16,5 +16,14 @@ namespace template.Models
             return cmd.ExecuteNonQuery();
 
         }
+        public DataSet UserLoginData(string email,string password)
+        {
+            SqlCommand cmd = new SqlCommand("select * from [dbo].[UserLogin] where email='" + email + "'AND password='" + password + "'", con);
+
+			SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+            return ds;
+		}
     }
 }

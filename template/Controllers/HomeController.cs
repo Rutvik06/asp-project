@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Data;
 using System.Diagnostics;
 using template.Models;
 
@@ -15,11 +16,33 @@ namespace template.Controllers
 
         public IActionResult Index()
         {
+			
             return View();
         }
+		[HttpGet]
 		public IActionResult Login()
 		{
+			if (TempData.Peek("UserLogin_id") != null)
+			{
+				return RedirectToAction("Index");
+			}
 			return View();
+		}
+		[HttpPost]
+		public IActionResult Login(UserLogin ul)
+		{
+			string username = ul.username;
+			string password = ul.password;
+			string email = ul.email;
+			DataSet ds = ul.UserLoginData(password,email);
+			ViewBag.data = ds.Tables[0];
+			foreach (System.Data.DataRow dr in ViewBag.data.Rows)
+			{
+				TempData["UserLogin_id"] = dr["id"].ToString();
+
+				return RedirectToAction("Index2");
+			}
+			return RedirectToAction("Login");
 		}
 		public IActionResult Index2()
 		{
@@ -80,7 +103,7 @@ namespace template.Controllers
 			string email = ul.email;
 			string password = ul.password;
 			ul.UserRegister(username,email, password);
-			return RedirectToAction("Register");
+			return RedirectToAction("Login");
 
            
 
