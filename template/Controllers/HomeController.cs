@@ -31,19 +31,18 @@ namespace template.Controllers
 		[HttpPost]
 		public IActionResult Login(UserLogin ul)
 		{
-			string username = ul.username;
 			string password = ul.password;
 			string email = ul.email;
-			DataSet ds = ul.UserLoginData(password,email);
+			DataSet ds = ul.UserLoginData(password, email);
 			ViewBag.data = ds.Tables[0];
 			foreach (System.Data.DataRow dr in ViewBag.data.Rows)
 			{
 				TempData["UserLogin_id"] = dr["id"].ToString();
-
 				return RedirectToAction("Index2");
 			}
-			return RedirectToAction("Login");
+			return RedirectToAction("Login"); // Change this line to RedirectToAction("Index");
 		}
+
 		public IActionResult Index2()
 		{
 			return View();

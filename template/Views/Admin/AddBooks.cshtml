@@ -15,14 +15,14 @@
                         </div>
                     </div>
                     <div class="iq-card-body">
-                        <form action="admin-books.html">
+                        <form method="post" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label>Book Name:</label>
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control" name="BookName">
                             </div>
                             <div class="form-group">
                                 <label>Book Category:</label>
-                                <select class="form-control" id="exampleFormControlSelect1">
+                                <select class="form-control" id="exampleFormControlSelect1" name="BookCategory">
                                     <option selected="" disabled="">Book Category</option>
                                     <option>General Books</option>
                                     <option>History Books</option>
@@ -38,7 +38,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Book Author:</label>
-                                <select class="form-control" id="exampleFormControlSelect2">
+                                <select class="form-control" id="exampleFormControlSelect2" name="BookAuthor">
                                     <option selected="" disabled="">Book Author</option>
                                     <option>Jhone Steben</option>
                                     <option>John Klok</option>
@@ -55,26 +55,20 @@
                             <div class="form-group">
                                 <label>Book Image:</label>
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" accept="image/png, image/jpeg">
+                                    <input type="file" class="custom-file-input" name="formfile">
                                     <label class="custom-file-label">Choose file</label>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label>Book pdf:</label>
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" accept="application/pdf, application/vnd.ms-excel">
-                                    <label class="custom-file-label">Choose file</label>
-                                </div>
-                            </div>
+                           
                             <div class="form-group">
                                 <label>Book Price:</label>
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control" name="BookPrice">
                             </div>
                             <div class="form-group">
                                 <label>Book Description:</label>
-                                <textarea class="form-control" rows="4"></textarea>
+                                <textarea class="form-control" rows="4" name="BookDescription" maxlength="50"></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <input type="submit" class="btn btn-primary" value="Submit"/>
                             <button type="reset" class="btn btn-danger">Reset</button>
                         </form>
                     </div>
@@ -84,4 +78,22 @@
     </div>
 </div>
       </div>
+@*<div class="row">
+    @foreach (var book in ViewBag.Books)
+    {
+        <div class="col-md-4">
+            <div class="card mb-4 box-shadow">
+                <img class="card-img-top" src="@book.BookImage" alt="Book Image">
+                <div class="card-body">
+                    <h5 class="card-title">@book.BookName</h5>
+                    <p class="card-text">@book.BookDescription</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="text-muted">@book.BookAuthor</span>
+                        <span class="text-muted">@book.BookPrice</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>*@
 
