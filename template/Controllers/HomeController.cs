@@ -24,7 +24,7 @@ namespace template.Controllers
 		{
 			if (TempData.Peek("UserLogin_id") != null)
 			{
-				return RedirectToAction("Index");
+				return RedirectToAction("Index2");
 			}
 			return View();
 		}
