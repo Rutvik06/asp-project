@@ -8,7 +8,9 @@ namespace template.Controllers
 {
 	public class AdminController : Controller
 	{
-		[HttpGet]
+        //---------------------------Index get 
+		
+        [HttpGet]
 		public IActionResult Index()
 		{
             if (TempData.Peek("Login_id") != null)
@@ -17,6 +19,8 @@ namespace template.Controllers
             }
             return View();
 		}
+        //-------------------------Index post
+
 		[HttpPost]
         public IActionResult Index(AdminLogin db)
         {
@@ -32,6 +36,9 @@ namespace template.Controllers
             }
             return RedirectToAction("Index"); 
         }
+
+        //------------------------------------dashboard get
+        
         [HttpGet]
         public IActionResult Dashboard()
 		{
@@ -41,12 +48,17 @@ namespace template.Controllers
             }
             return View();
 		}
+
+        //------------------------------------------- addbooks get
+
         [HttpGet]
         public IActionResult AddBooks(AddBook ab,int a=0) {
           
             return View();
+}
 
-        }
+        //-------------------------------------------addbooks post
+        
         [HttpPost]
         public async Task<IActionResult> AddBooks(AddBook ab,IFormFile formFile) 
         {
@@ -65,6 +77,9 @@ namespace template.Controllers
             ab.AddNewBook(ab.BookName, ab.BookCategory,ab.BookPrice,ab.BookDescription,ab.BookAuthor,ab.BookImage);
             return RedirectToAction("AddBooks");
         }
+
+        //--------------------------------------------- view books get
+        
         [HttpGet]
         public IActionResult ViewBooks(ViewBooks vb)
 
@@ -83,16 +98,25 @@ namespace template.Controllers
             ViewBag.ImageUrls = imageUrls;
             return View();
         }
+
+        //----------------------------------------------delete books
+
         public IActionResult deleteBookData(ViewBooks vb, int id)
         {
             vb.deleteBook(id);
             return RedirectToAction("ViewBooks");
             // GET
         }
+
+        //---------------------------------------------- update books get
+
         [HttpGet]
         public IActionResult UpdateBookData() {
             return View();
         }
+
+        //------------------------------------------------update books post
+
         [HttpPost]
         public async Task<IActionResult> UpdateBookData(ViewBooks vb, IFormFile formFile,int a=0)
         {
@@ -111,6 +135,8 @@ namespace template.Controllers
             vb.updateBook(vb.id,vb.BookName, vb.BookCategory, vb.BookPrice, vb.BookDescription, vb.BookAuthor, vb.BookImage);
             return RedirectToAction("UpdateBookData");
         }
+
+        //----------------------------------------------logout
         public IActionResult Logout()
         {
             TempData.Clear();
