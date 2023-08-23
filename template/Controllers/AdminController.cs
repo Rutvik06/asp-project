@@ -43,27 +43,7 @@ namespace template.Controllers
 		}
         [HttpGet]
         public IActionResult AddBooks(AddBook ab,int a=0) {
-            //if (TempData["image_name"] == null)
-            //{
-            //    Set a default value for 'image' or handle the case where it's not available
-            //    ViewBag.image = "default_image.jpg";
-            //}
-            //else
-            //{
-            //    ViewBag.image = TempData["image_name"];
-            //}
-            //DataSet ds = ab.selectNewBook();
-            //ViewBag.user_data = ds.Tables[0];
-
-            //ViewBag.image = TempData["image_name"];
-            //ViewBag.ImageUrl = Url.Content("~/image/" + TempData["image_name"]);
-            //List<string> imageUrls = new List<string>();
-            //foreach (DataRow dr in ds.Tables[0].Rows)
-            //{
-            //    imageUrls.Add(Url.Content("~/NewBooks/" + dr["BookImage"].ToString()));
-            //}
-
-            //ViewBag.ImageUrls = imageUrls;
+          
             return View();
 
         }
