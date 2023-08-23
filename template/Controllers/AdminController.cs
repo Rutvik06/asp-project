@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
 using System.Data;
 using template.Models;
@@ -41,54 +42,94 @@ namespace template.Controllers
             return View();
 		}
         [HttpGet]
-        public IActionResult AddBooks() {
-            if (TempData["image_name"] == null)
-            {
-                // Set a default value for 'image' or handle the case where it's not available
-                ViewBag.image = "default_image.jpg";
-            }
-            else
-            {
-                ViewBag.image = TempData["image_name"];
-            }
+        public IActionResult AddBooks(AddBook ab,int a=0) {
+            //if (TempData["image_name"] == null)
+            //{
+            //    Set a default value for 'image' or handle the case where it's not available
+            //    ViewBag.image = "default_image.jpg";
+            //}
+            //else
+            //{
+            //    ViewBag.image = TempData["image_name"];
+            //}
+            //DataSet ds = ab.selectNewBook();
+            //ViewBag.user_data = ds.Tables[0];
+
+            //ViewBag.image = TempData["image_name"];
+            //ViewBag.ImageUrl = Url.Content("~/image/" + TempData["image_name"]);
+            //List<string> imageUrls = new List<string>();
+            //foreach (DataRow dr in ds.Tables[0].Rows)
+            //{
+            //    imageUrls.Add(Url.Content("~/NewBooks/" + dr["BookImage"].ToString()));
+            //}
+
+            //ViewBag.ImageUrls = imageUrls;
             return View();
-            
+
         }
         [HttpPost]
         public async Task<IActionResult> AddBooks(AddBook ab,IFormFile formFile) 
         {
-            if (ab == null)
-            {
-                // Handle the null object case (e.g., return an error message or redirect)
-                return BadRequest("Invalid input.");
-            }
-
             var image = ContentDispositionHeaderValue.Parse(formFile.ContentDisposition).FileName.Trim();
-            var uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(formFile.FileName);
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "NewBooks", formFile.FileName);
 
-            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "AdminImage", uniqueFileName);
             using (System.IO.Stream stream = new FileStream(path, FileMode.Create))
             {
                 await formFile.CopyToAsync(stream);
             }
-            TempData["image_name"] = uniqueFileName;
+            string serializableString = image.ToString();
+            TempData["image_name"] = serializableString;
 
-            string BookName = ab.BookName;
-            string BookCategory = ab.BookCategory;
-            string BookAuthor = ab.BookAuthor;
-            string BookDescription = ab.BookDescription;
-            //string BookImage = ab.BookImage;
-            string BookPrice = ab.BookPrice;
-            string truncatedImage = ab.BookImage.Length > 50 ? ab.BookImage.Substring(0, 50) : ab.BookImage;
-            ab.BookImage = $"~/AdminImage/{uniqueFileName}";
-            ab.AddNewBook(BookName, BookCategory, BookAuthor, BookDescription, BookPrice,truncatedImage);
-
-            TempData["image_name"] = image; 
+            //TempData["image_name"] = image;
+            ab.BookImage = image.ToString();
+            ab.AddNewBook(ab.BookName, ab.BookCategory,ab.BookPrice,ab.BookDescription,ab.BookAuthor,ab.BookImage);
             return RedirectToAction("AddBooks");
         }
-        public IActionResult ViewBooks()
+        [HttpGet]
+        public IActionResult ViewBooks(ViewBooks vb)
+
         {
+            DataSet ds = vb.selectNewBook();
+            ViewBag.user_data = ds.Tables[0];
+
+            //ViewBag.image = TempData["image_name"];
+            //ViewBag.ImageUrl = Url.Content("~/image/" + TempData["image_name"]);
+            List<string> imageUrls = new List<string>();
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                imageUrls.Add(Url.Content("~/NewBooks/" + dr["BookImage"].ToString()));
+            }
+
+            ViewBag.ImageUrls = imageUrls;
             return View();
+        }
+        public IActionResult deleteBookData(ViewBooks vb, int id)
+        {
+            vb.deleteBook(id);
+            return RedirectToAction("ViewBooks");
+            // GET
+        }
+        [HttpGet]
+        public IActionResult UpdateBookData() {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> UpdateBookData(ViewBooks vb, IFormFile formFile,int a=0)
+        {
+            var image = ContentDispositionHeaderValue.Parse(formFile.ContentDisposition).FileName.Trim();
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "NewBooks", formFile.FileName);
+
+            using (System.IO.Stream stream = new FileStream(path, FileMode.Create))
+            {
+                await formFile.CopyToAsync(stream);
+            }
+            string serializableString = image.ToString();
+            TempData["image_name"] = serializableString;
+
+            //TempData["image_name"] = image;
+            vb.BookImage = image.ToString();
+            vb.updateBook(vb.id,vb.BookName, vb.BookCategory, vb.BookPrice, vb.BookDescription, vb.BookAuthor, vb.BookImage);
+            return RedirectToAction("UpdateBookData");
         }
         public IActionResult Logout()
         {
