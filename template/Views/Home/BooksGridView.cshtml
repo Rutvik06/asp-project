@@ -2,7 +2,16 @@
 @{
     ViewData["Title"] = "BooksGridView";
 }
-
+   @* @foreach (System.Data.DataRow dr in ViewBag.user_data.Rows)
+    {
+        <tr>
+            <td>
+                @dr["BookName"].ToString()
+                <p>@ViewBag.ImageUrls[ViewBag.user_data.Rows.IndexOf(dr)]</p>
+                <img src="@ViewBag.ImageUrls[ViewBag.user_data.Rows.IndexOf(dr)]" alt="Image" />
+            </td>
+        </tr>
+    } *@
 <div class="page-content bg-grey">
 	<div class="content-inner-1 border-bottom">
 		<div class="container">
@@ -634,10 +643,12 @@
 						</div>
 					</div>
 					<div class="row book-grid-row">
+   @foreach (System.Data.DataRow dr in ViewBag.user_data.Rows)
+   {
 						<div class="col-book style-2">
 							<div class="dz-shop-card style-1">
 								<div class="dz-media">
-									<img src="~/images/books/grid/book14.jpg" alt="book">
+										<img src="@ViewBag.ImageUrls[ViewBag.user_data.Rows.IndexOf(dr)]" alt="Image" />
 								</div>
 								<div class="bookmark-btn style-2">
 									<input class="form-check-input" type="checkbox" id="flexCheckDefault1">
@@ -646,10 +657,9 @@
 									</label>
 								</div>
 								<div class="dz-content">
-									<h5 class="title"><a asp-action="BooksGridView" asp-controller="Home">Thunder Stunt</a></h5>
+										<h5 class="title"><a asp-action="Books_Detail" asp-controller="Home" asp-route-id="dr[" id"]">@dr["BookName"].ToString()</a></h5>
 									<ul class="dz-tags">
-										<li><a asp-action="BooksGridView" asp-controller="Home">ADVANTURE,</a></li>
-										<li><a asp-action="BooksGridView" asp-controller="Home">SCIENCE,</a></li>
+											<li><a asp-action="Books_Detail" asp-controller="Home" asp-route-id="dr["id"]">@dr["BookCategory"].ToString()</a></li>
 									</ul>
 									<ul class="dz-rating">
 										<li><i class="flaticon-star text-yellow"></i></li>
@@ -660,385 +670,14 @@
 									</ul>
 									<div class="book-footer">
 										<div class="price">
-											<span class="price-num">$57.5</span>
-											<del>$12.0</del>
+												<span class="price-num">@dr["BookPrice"].ToString()</span>
 										</div>
 										<a asp-action="Shop_Cart" asp-controller="Home" class="btn btn-secondary box-btn btnhover btnhover2"><i class="flaticon-shopping-cart-1 m-r10"></i> Add to cart</a>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="col-book style-2">
-							<div class="dz-shop-card style-1">
-								<div class="dz-media">
-									<img src="~/images/books/grid/book15.jpg" alt="book">
-								</div>
-								<div class="bookmark-btn style-2">
-									<input class="form-check-input" type="checkbox" id="flexCheckDefault2">
-									<label class="form-check-label" for="flexCheckDefault2">
-										<i class="flaticon-heart"></i>
-									</label>
-								</div>
-								<div class="dz-content">
-									<h5 class="title"><a asp-action="BooksGridView" asp-controller="Home">Battler Drive</a></h5>
-									<ul class="dz-tags">
-										<li><a asp-action="BooksGridView" asp-controller="Home">RACING,</a></li>
-										<li><a asp-action="BooksGridView" asp-controller="Home">DRAMA</a></li>
-									</ul>
-									<ul class="dz-rating">
-										<li><i class="flaticon-star text-yellow"></i></li>
-										<li><i class="flaticon-star text-yellow"></i></li>
-										<li><i class="flaticon-star text-yellow"></i></li>
-										<li><i class="flaticon-star text-yellow"></i></li>
-										<li><i class="flaticon-star text-muted"></i></li>
-									</ul>
-									<div class="book-footer">
-										<div class="price">
-											<span class="price-num">$60.09</span>
-											<del>$12.0</del>
-										</div>
-										<a  asp-action="Shop_Cart" asp-controller="Home" class="btn btn-secondary box-btn btnhover btnhover2"><i class="flaticon-shopping-cart-1 m-r10"></i> Add to cart</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-book style-2">
-							<div class="dz-shop-card style-1">
-								<div class="dz-media">
-									<img src="~/images/books/grid/book4.jpg" alt="book">
-								</div>
-								<div class="bookmark-btn style-2">
-									<input class="form-check-input" type="checkbox" id="flexCheckDefault3">
-									<label class="form-check-label" for="flexCheckDefault3">
-										<i class="flaticon-heart"></i>
-									</label>
-								</div>
-								<div class="dz-content">
-									<h5 class="title"><a asp-action="BooksGridView" asp-controller="Home">Take Out Tango</a></h5>
-									<ul class="dz-tags">
-										<li><a asp-action="BooksGridView" asp-controller="Home">SPORTS,</a></li>
-										<li><a asp-action="BooksGridView" asp-controller="Home">DRAMA</a></li>
-									</ul>
-									<ul class="dz-rating">
-										<li><i class="flaticon-star text-yellow"></i></li>
-										<li><i class="flaticon-star text-yellow"></i></li>
-										<li><i class="flaticon-star text-yellow"></i></li>
-										<li><i class="flaticon-star text-yellow"></i></li>
-										<li><i class="flaticon-star text-muted"></i></li>
-									</ul>
-									<div class="book-footer">
-										<div class="price">
-											<span class="price-num">$12.05</span>
-											<del>$54.0</del>
-										</div>
-										<a asp-action="Shop_Cart" asp-controller="Home" class="btn btn-secondary box-btn btnhover btnhover2"><i class="flaticon-shopping-cart-1 m-r10"></i> Add to cart</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-book style-2">
-							<div class="dz-shop-card style-1">
-								<div class="dz-media">
-									<img src="~/images/books/grid/book9.jpg" alt="book">
-								</div>
-								<div class="bookmark-btn style-2">
-									<input class="form-check-input" type="checkbox" id="flexCheckDefault4">
-									<label class="form-check-label" for="flexCheckDefault4">
-										<i class="flaticon-heart"></i>
-									</label>
-								</div>
-								<div class="dz-content">
-									<h5 class="title"><a asp-action="BooksGridView" asp-controller="Home">Missadventure</a></h5>
-									<ul class="dz-tags">
-										<li><a asp-action="BooksGridView" asp-controller="Home">ADVENTURE</a></li>
-									</ul>
-									<ul class="dz-rating">
-										<li><i class="flaticon-star text-yellow"></i></li>
-										<li><i class="flaticon-star text-yellow"></i></li>
-										<li><i class="flaticon-star text-muted"></i></li>
-										<li><i class="flaticon-star text-muted"></i></li>
-										<li><i class="flaticon-star text-muted"></i></li>
-									</ul>
-									<div class="book-footer">
-										<div class="price">
-											<span class="price-num">$53.0</span>
-											<del>$44.0</del>
-										</div>
-										<a asp-action="Shop_Cart" asp-controller="Home" class="btn btn-secondary box-btn btnhover btnhover2"><i class="flaticon-shopping-cart-1 m-r10"></i> Add to cart</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-book style-2">
-							<div class="dz-shop-card style-1">
-								<div class="dz-media">
-									<img src="~/images/books/grid/book7.jpg" alt="book">
-								</div>
-								<div class="bookmark-btn style-2">
-									<input class="form-check-input" type="checkbox" id="flexCheckDefault5">
-									<label class="form-check-label" for="flexCheckDefault5">
-										<i class="flaticon-heart"></i>
-									</label>
-								</div>
-								<div class="dz-content">
-									<h5 class="title"><a asp-action="BooksGridView" asp-controller="Home">Thunder Stunt</a></h5>
-									<ul class="dz-tags">
-										<li><a asp-action="BooksGridView" asp-controller="Home">ADVANTURE,</a></li>
-										<li><a asp-action="BooksGridView" asp-controller="Home">SCIENCE</a></li>
-									</ul>
-									<ul class="dz-rating">
-										<li><i class="flaticon-star text-yellow"></i></li>
-										<li><i class="flaticon-star text-yellow"></i></li>
-										<li><i class="flaticon-star text-yellow"></i></li>
-										<li><i class="flaticon-star text-yellow"></i></li>
-										<li><i class="flaticon-star text-muted"></i></li>
-									</ul>
-									<div class="book-footer">
-										<div class="price">
-											<span class="price-num">$53.0</span>
-											<del>$70.0</del>
-										</div>
-										<a asp-action="Shop_Cart" asp-controller="Home" class="btn btn-secondary box-btn btnhover btnhover2"><i class="flaticon-shopping-cart-1 m-r10"></i> Add to cart</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-book style-2">
-							<div class="dz-shop-card style-1">
-								<div class="dz-media">
-									<img src="~/images/books/grid/book13.jpg" alt="book">
-								</div>
-								<div class="bookmark-btn style-2">
-									<input class="form-check-input" type="checkbox" id="flexCheckDefault6">
-									<label class="form-check-label" for="flexCheckDefault6">
-										<i class="flaticon-heart"></i>
-									</label>
-								</div>
-								<div class="dz-content">
-									<h5 class="title"><a asp-action="BooksGridView" asp-controller="Home">Battler Drive</a></h5>
-									<ul class="dz-tags">
-										<li><a asp-action="BooksGridView" asp-controller="Home">RACING,</a></li>
-										<li><a asp-action="BooksGridView" asp-controller="Home">DRAMA</a></li>
-									</ul>
-									<ul class="dz-rating">
-										<li><i class="flaticon-star text-yellow"></i></li>
-										<li><i class="flaticon-star text-yellow"></i></li>
-										<li><i class="flaticon-star text-yellow"></i></li>
-										<li><i class="flaticon-star text-yellow"></i></li>
-										<li><i class="flaticon-star text-muted"></i></li>
-									</ul>
-									<div class="book-footer">
-										<div class="price">
-											<span class="price-num">$ 60.09</span>
-											<del>$12.0</del>
-										</div>
-										<a asp-action="Shop_Cart" asp-controller="Home" class="btn btn-secondary box-btn btnhover btnhover2"><i class="flaticon-shopping-cart-1 m-r10"></i> Add to cart</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-book style-2">
-							<div class="dz-shop-card style-1">
-								<div class="dz-media">
-									<img src="~/images/books/grid/book11.jpg" alt="book">
-								</div>
-								<div class="bookmark-btn style-2">
-									<input class="form-check-input" type="checkbox" id="flexCheckDefault7">
-									<label class="form-check-label" for="flexCheckDefault7">
-										<i class="flaticon-heart"></i>
-									</label>
-								</div>
-								<div class="dz-content">
-									<h5 class="title"><a asp-action="BooksGridView" asp-controller="Home">Take Out Tango</a></h5>
-									<ul class="dz-tags">
-										<li><a asp-action="BooksGridView" asp-controller="Home">SPORTS,</a></li>
-										<li><a asp-action="BooksGridView" asp-controller="Home">DRAMA</a></li>
-									</ul>
-									<ul class="dz-rating">
-										<li><i class="flaticon-star text-yellow"></i></li>
-										<li><i class="flaticon-star text-yellow"></i></li>
-										<li><i class="flaticon-star text-yellow"></i></li>
-										<li><i class="flaticon-star text-yellow"></i></li>
-										<li><i class="flaticon-star text-muted"></i></li>
-									</ul>
-									<div class="book-footer">
-										<div class="price">
-											<span class="price-num">$12.05</span>
-											<del>$54.0</del>
-										</div>
-										<a asp-action="Shop_Cart" asp-controller="Home" class="btn btn-secondary box-btn btnhover btnhover2"><i class="flaticon-shopping-cart-1 m-r10"></i> Add to cart</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-book style-2">
-							<div class="dz-shop-card style-1">
-								<div class="dz-media">
-									<img src="~/images/books/grid/book10.jpg" alt="book">
-								</div>
-								<div class="bookmark-btn style-2">
-									<input class="form-check-input" type="checkbox" id="flexCheckDefault8">
-									<label class="form-check-label" for="flexCheckDefault8">
-										<i class="flaticon-heart"></i>
-									</label>
-								</div>
-								<div class="dz-content">
-									<h5 class="title"><a asp-action="BooksGridView" asp-controller="Home">Missadventure</a></h5>
-									<ul class="dz-tags">
-										<li><a asp-action="BooksGridView" asp-controller="Home">ADVENTURE</a></li>
-									</ul>
-									<ul class="dz-rating">
-										<li><i class="flaticon-star text-yellow"></i></li>
-										<li><i class="flaticon-star text-yellow"></i></li>
-										<li><i class="flaticon-star text-yellow"></i></li>
-										<li><i class="flaticon-star text-yellow"></i></li>
-										<li><i class="flaticon-star text-muted"></i></li>
-									</ul>
-									<div class="book-footer">
-										<div class="price">
-											<span class="price-num">$53.0</span>
-											<del>$44.0</del>
-										</div>
-										<a asp-action="Shop_Cart" asp-controller="Home" class="btn btn-secondary box-btn btnhover btnhover2"><i class="flaticon-shopping-cart-1 m-r10"></i> Add to cart</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-book style-2">
-							<div class="dz-shop-card style-1">
-								<div class="dz-media">
-									<img src="~/images/books/grid/book16.jpg" alt="book">
-								</div>
-								<div class="bookmark-btn style-2">
-									<input class="form-check-input" type="checkbox" id="flexCheckDefault9">
-									<label class="form-check-label" for="flexCheckDefault9">
-										<i class="flaticon-heart"></i>
-									</label>
-								</div>
-								<div class="dz-content">
-									<h5 class="title"><a asp-action="BooksGridView" asp-controller="Home">Thunder Stunt</a></h5>
-									<ul class="dz-tags">
-										<li><a asp-action="BooksGridView" asp-controller="Home">ADVANTURE</a></li>
-										<li><a asp-action="BooksGridView" asp-controller="Home">SCIENCE</a></li>
-									</ul>
-									<ul class="dz-rating">
-										<li><i class="flaticon-star text-yellow"></i></li>
-										<li><i class="flaticon-star text-yellow"></i></li>
-										<li><i class="flaticon-star text-yellow"></i></li>
-										<li><i class="flaticon-star text-yellow"></i></li>
-										<li><i class="flaticon-star text-muted"></i></li>
-									</ul>
-									<div class="book-footer">
-										<div class="price">
-											<span class="price-num">$54.78</span>
-											<del>$70.00</del>
-										</div>
-										<a asp-action="Shop_Cart" asp-controller="Home" class="btn btn-secondary box-btn btnhover btnhover2"><i class="flaticon-shopping-cart-1 m-r10"></i> Add to cart</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-book style-2">
-							<div class="dz-shop-card style-1">
-								<div class="dz-media">
-									<img src="~/images/books/grid/book3.jpg" alt="book">
-								</div>
-								<div class="bookmark-btn style-2">
-									<input class="form-check-input" type="checkbox" id="flexCheckDefault10">
-									<label class="form-check-label" for="flexCheckDefault10">
-										<i class="flaticon-heart"></i>
-									</label>
-								</div>
-								<div class="dz-content">
-									<h5 class="title"><a asp-action="BooksGridView" asp-controller="Home">Battler Drive</a></h5>
-									<ul class="dz-tags">
-										<li><a asp-action="BooksGridView" asp-controller="Home">RACING,</a></li>
-										<li><a asp-action="BooksGridView" asp-controller="Home">DRAMA</a></li>
-									</ul>
-									<ul class="dz-rating">
-										<li><i class="flaticon-star text-yellow"></i></li>
-										<li><i class="flaticon-star text-yellow"></i></li>
-										<li><i class="flaticon-star text-yellow"></i></li>
-										<li><i class="flaticon-star text-muted"></i></li>
-										<li><i class="flaticon-star text-muted"></i></li>
-									</ul>
-									<div class="book-footer">
-										<div class="price">
-											<span class="price-num">$60.09</span>
-											<del>$12.0</del>
-										</div>
-										<a asp-action="Shop_Cart" asp-controller="Home" class="btn btn-secondary box-btn btnhover btnhover2"><i class="flaticon-shopping-cart-1 m-r10"></i> Add to cart</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-book style-2">
-							<div class="dz-shop-card style-1">
-								<div class="dz-media">
-									<img src="~/images/books/grid/book5.jpg" alt="book">
-								</div>
-								<div class="bookmark-btn style-2">
-									<input class="form-check-input" type="checkbox" id="flexCheckDefault11">
-									<label class="form-check-label" for="flexCheckDefault11">
-										<i class="flaticon-heart"></i>
-									</label>
-								</div>
-								<div class="dz-content">
-									<h5 class="title"><a asp-action="BooksGridView" asp-controller="Home">Take Out Tango</a></h5>
-									<ul class="dz-tags">
-										<li><a asp-action="BooksGridView" asp-controller="Home">SPORTS,</a></li>
-										<li><a asp-action="BooksGridView" asp-controller="Home">DRAMA</a></li>
-									</ul>
-									<ul class="dz-rating">
-										<li><i class="flaticon-star text-yellow"></i></li>
-										<li><i class="flaticon-star text-yellow"></i></li>
-										<li><i class="flaticon-star text-yellow"></i></li>
-										<li><i class="flaticon-star text-muted"></i></li>
-										<li><i class="flaticon-star text-muted"></i></li>
-									</ul>
-									<div class="book-footer">
-										<div class="price">
-											<span class="price-num">$12.05</span>
-											<del>$54.0</del>
-										</div>
-										<a asp-action="Shop_Cart" asp-controller="Home" class="btn btn-secondary box-btn btnhover btnhover2"><i class="flaticon-shopping-cart-1 m-r10"></i> Add to cart</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-book style-2">
-							<div class="dz-shop-card style-1">
-								<div class="dz-media">
-									<img src="~/images/books/grid/book12.jpg" alt="book">
-								</div>
-								<div class="bookmark-btn style-2">
-									<input class="form-check-input" type="checkbox" id="flexCheckDefault12">
-									<label class="form-check-label" for="flexCheckDefault12">
-										<i class="flaticon-heart"></i>
-									</label>
-								</div>
-								<div class="dz-content">
-									<h5 class="title"><a asp-action="BooksGridView" asp-controller="Home">Missadventure</a></h5>
-									<ul class="dz-tags">
-										<li><a asp-action="BooksGridView" asp-controller="Home">ADVENTURE</a></li>
-									</ul>
-									<ul class="dz-rating">
-										<li><i class="flaticon-star text-yellow"></i></li>
-										<li><i class="flaticon-star text-yellow"></i></li>
-										<li><i class="flaticon-star text-yellow"></i></li>
-										<li><i class="flaticon-star text-muted"></i></li>
-										<li><i class="flaticon-star text-muted"></i></li>
-									</ul>
-									<div class="book-footer">
-										<div class="price">
-											<span class="price-num">$53.0</span>
-											<del>$44.0</del>
-										</div>
-										<a asp-action="Shop_Cart" asp-controller="Home" class="btn btn-secondary box-btn btnhover btnhover2"><i class="flaticon-shopping-cart-1 m-r10"></i> Add to cart</a>
-									</div>
-								</div>
-							</div>
-						</div>
+						}
 					</div>
 					<div class="row page mt-0">
 						<div class="col-md-6">

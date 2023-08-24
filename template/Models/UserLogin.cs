@@ -18,7 +18,7 @@ namespace template.Models
         }
         public DataSet UserLoginData(string email,string password)
         {
-            SqlCommand cmd = new SqlCommand("select * from [dbo].[UserLogin] where email='" + email + "'AND password='" + password + "'", con);
+            SqlCommand cmd = new SqlCommand("select * from [dbo].[UserLogin] where email='" + email + "' and password='" + password + "'", con);
 
 			SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataSet ds = new DataSet();

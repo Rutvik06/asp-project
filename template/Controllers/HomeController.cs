@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Data;
 using System.Diagnostics;
+using System.Net;
 using template.Models;
 
 namespace template.Controllers
@@ -24,21 +25,21 @@ namespace template.Controllers
 		{
 			if (TempData.Peek("UserLogin_id") != null)
 			{
-				return RedirectToAction("Index2");
+				return RedirectToAction("Index");
 			}
 			return View();
 		}
 		[HttpPost]
 		public IActionResult Login(UserLogin ul)
 		{
-			string password = ul.password;
 			string email = ul.email;
-			DataSet ds = ul.UserLoginData(password, email);
+			string password = ul.password;
+			DataSet ds = ul.UserLoginData(email, password);
 			ViewBag.data = ds.Tables[0];
 			foreach (System.Data.DataRow dr in ViewBag.data.Rows)
 			{
 				TempData["UserLogin_id"] = dr["id"].ToString();
-				return RedirectToAction("Index2");
+				return RedirectToAction("Index");
 			}
 			return RedirectToAction("Login"); // Change this line to RedirectToAction("Index");
 		}
@@ -51,8 +52,25 @@ namespace template.Controllers
 		{
 			return View();
 		}
-		public IActionResult Books_Detail()
+
+		//---------------------------------------single user side book view
+		[HttpGet]
+		public IActionResult Books_Detail(ViewUserBooks vub,string id,int a=0)
 		{
+			if(int.TryParse(id,out int bookId))
+			{
+
+			DataSet ds = vub.selectUserSideBookSingleBook(bookId) ;
+
+			DataRow bookDataRow = ds.Tables[0].Rows[0]; // Assuming there's only one row for the selected book
+
+			List<string> imageUrls = new List<string>();
+			imageUrls.Add(Url.Content("~/NewBooks/" + bookDataRow["BookImage"].ToString()));
+
+			ViewBag.BookData = bookDataRow;
+			ViewBag.ImageUrls = imageUrls;
+			//vub.selectUserSideBookSingleBook(id);
+			}
 			return View();
 		}
 		public IActionResult Shop_Cart()
@@ -107,9 +125,21 @@ namespace template.Controllers
            
 
 		}
-		public IActionResult BooksGridView()
+
+		//----------------------------------------books grid view for purchase
+
+		[HttpGet]
+		public IActionResult BooksGridView(ViewUserBooks vub)
 		{
-			return View();
+            DataSet ds = vub.selectUserSideBooks();
+            ViewBag.user_data = ds.Tables[0];
+            List<string> imageUrls = new List<string>();
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                imageUrls.Add(Url.Content("~/NewBooks/" + dr["BookImage"].ToString()));
+            }
+            ViewBag.ImageUrls = imageUrls;
+            return View();
 		}
 		public IActionResult BlogDetail()
 		{

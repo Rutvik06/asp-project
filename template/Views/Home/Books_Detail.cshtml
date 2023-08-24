@@ -3,9 +3,11 @@
     ViewData["Title"] = "Books_Detail";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-
-	<div class="page-content bg-grey">
+<h5 class="title">@ViewBag.BookData["BookName"].ToString()</h5>
+<p>@ViewBag.BookData["Author"].ToString()</p>
+<img src="@ViewBag.ImageUrls[0]" alt="Image" />
+<!-- Display other book details as needed -->
+@* <div class="page-content bg-grey">
 		<section class="content-inner-1">
 			<div class="container">
 				<div class="row book-grid-row style-4 m-b60">
@@ -413,3 +415,4 @@
 		</section>
 		<!-- Newsletter End -->
 	</div>
+ *@
