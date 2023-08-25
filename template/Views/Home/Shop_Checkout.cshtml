@@ -25,73 +25,60 @@
 	<section class="content-inner-1">
 		<!-- Product -->
 		<div class="container">
-			<form class="shop-form">
+			<form class="shop-form" method="post">
 				<div class="row">
 					<div class="col-lg-6 col-md-6">
 						<div class="widget">
 							<h4 class="widget-title">Billing & Shipping Address</h4>
 							<div class="form-group">
-								<select class="default-select">
-									<option value="1">Åland Islands</option>
-									<option value="2">Afghanistan</option>
-									<option value="3">Albania</option>
-									<option value="4">Algeria</option>
-									<option value="5">Andorra</option>
-									<option value="6">Angola</option>
-									<option value="7">Anguilla</option>
-									<option value="8">Antarctica</option>
-									<option value="9">Antigua and Barbuda</option>
-									<option value="10">Argentina</option>
-									<option value="11">Armenia</option>
-									<option value="12">Aruba</option>
-									<option value="13">Australia</option>
+								<select class="default-select" name="UserCountry">
+									<option value="Åland Islands">Åland Islands</option>
+									<option value="Afghanistan">Afghanistan</option>
+									<option value="Albania">Albania</option>
+									<option value="Algeria">Algeria</option>
+									<option value="Andorra">Andorra</option>
+									<option value="Angola">Angola</option>
+									<option value="Anguilla">Anguilla</option>
+									<option value="Antarctica">Antarctica</option>
+									<option value="Antigua and Barbuda">Antigua and Barbuda</option>
+									<option value="Argentina">Argentina</option>
+									<option value="Armenia">Armenia</option>
+									<option value="Aruba">Aruba</option>
+									<option value="Australia">Australia</option>
 								</select>
 							</div>
 							<div class="row">
 								<div class="form-group col-md-6">
-									<input type="text" class="form-control" placeholder="First Name">
+									<input type="text" class="form-control" placeholder="First Name" name="UserFName">
 								</div>
 								<div class="form-group col-md-6">
-									<input type="text" class="form-control" placeholder="Last Name">
+									<input type="text" class="form-control" placeholder="Last Name" name="UserLName">
 								</div>
 							</div>
+							
 							<div class="form-group">
-								<input type="text" class="form-control" placeholder="Company Name">
-							</div>
-							<div class="form-group">
-								<input type="text" class="form-control" placeholder="Address">
+								<input type="text" class="form-control" placeholder="Address" name="UserAddress">
 							</div>
 							<div class="row">
+								
 								<div class="form-group col-md-6">
-									<input type="text" class="form-control" placeholder="Apartment, suite, unit etc.">
+									<input type="text" class="form-control" placeholder="Town / City" name="UserCity">
 								</div>
 								<div class="form-group col-md-6">
-									<input type="text" class="form-control" placeholder="Town / City">
+									<input type="text" class="form-control" placeholder="Postcode / Zip" name="UserZip">
 								</div>
 							</div>
+							
 							<div class="row">
 								<div class="form-group col-md-6">
-									<input type="text" class="form-control" placeholder="State / County">
+									<input type="email" class="form-control" placeholder="Email" name="UserEmail">
 								</div>
 								<div class="form-group col-md-6">
-									<input type="text" class="form-control" placeholder="Postcode / Zip">
+									<input type="text" class="form-control" placeholder="Phone" name="UserPhone">
 								</div>
 							</div>
-							<div class="row">
-								<div class="form-group col-md-6">
-									<input type="email" class="form-control" placeholder="Email">
-								</div>
-								<div class="form-group col-md-6">
-									<input type="text" class="form-control" placeholder="Phone">
-								</div>
-							</div>
-							<button class="btn btn-primary btnhover mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#create-an-account">Create an account <i class="fa fa-arrow-circle-o-down"></i></button>
-							<div id="create-an-account" class="collapse">
-								<p>Create an account by entering the information below. If you are a returning customer please login at the top of the page.</p>
-								<div class="form-group">
-									<input type="password" class="form-control" placeholder="Password">
-								</div>
-							</div>
+							<button class="btn btn-primary btnhover mb-3" type="submit" data-bs-toggle="collapse" data-bs-target="#create-an-account">Create an account <i class="fa fa-arrow-circle-o-down"></i></button>
+							
 						</div>
 					</div>
 					<div class="col-lg-6 col-md-6">

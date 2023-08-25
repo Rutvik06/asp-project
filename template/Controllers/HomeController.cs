@@ -53,21 +53,7 @@ namespace template.Controllers
 			return View();
 		}
 
-		//---------------------------------------single user side book view
-		//[HttpGet]
-		//public IActionResult Books_Detail(ViewUserBooks vub,int id,int a=0)
-		//{
-		//	//DataSet ds = vub.selectUserSideBooks();
-		//	//ViewBag.user_data = ds.Tables[0];
-		//	//List<string> imageUrls = new List<string>();
-		//	//foreach (DataRow dr in ds.Tables[0].Rows)
-		//	//{
-		//	//	imageUrls.Add(Url.Content("~/NewBooks/" + dr["BookImage"].ToString()));
-		//	//}
-		//	//ViewBag.ImageUrls = imageUrls;
-		//	vub.selectUserSideBookSingleBook(id);
-		//	return View();
-		//}
+	//------------------------------------------------------user side single book
 		[HttpGet]
 		public IActionResult Books_Detail(ViewUserBooks vub, int id, int a = 0)
 		{
@@ -91,6 +77,17 @@ namespace template.Controllers
 		public IActionResult Shop_Cart()
 		{
 			return View();
+		}
+
+		//----------------------------------------------add new acccount in checkout and userlist
+		[HttpPost]
+		public IActionResult Shop_Checkout(UserAccount ua)
+		{
+			//string UserFName = ua.UserFName;
+			//string UserLName = ua.UserLName;
+			//string UserCountry = ua.UserCountry;
+			ua.AddAccount(ua.UserFName,ua.UserLName,ua.UserCountry,ua.UserEmail,ua.UserPhone,ua.UserAddress,ua.UserCity,ua.UserZip);
+			return RedirectToAction("Shop_Checkout");
 		}
 		public IActionResult Shop_Checkout()
 		{
