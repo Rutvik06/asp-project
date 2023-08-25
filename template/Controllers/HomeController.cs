@@ -83,9 +83,7 @@ namespace template.Controllers
 		[HttpPost]
 		public IActionResult Shop_Checkout(UserAccount ua)
 		{
-			//string UserFName = ua.UserFName;
-			//string UserLName = ua.UserLName;
-			//string UserCountry = ua.UserCountry;
+			
 			ua.AddAccount(ua.UserFName,ua.UserLName,ua.UserCountry,ua.UserEmail,ua.UserPhone,ua.UserAddress,ua.UserCity,ua.UserZip);
 			return RedirectToAction("Shop_Checkout");
 		}
