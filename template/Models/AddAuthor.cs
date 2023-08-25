@@ -5,6 +5,7 @@ namespace template.Models
 {
     public class AddAuthor
     {
+        public int id { get; set; }
         public string AuthorName { get; set; }
         public string AuthorDescription { get; set; } 
         public string AuthorEmail { get; set; }
@@ -31,6 +32,20 @@ namespace template.Models
             da.Fill(ds);
 
             return ds;
+        }
+        public int deleteAuthor(int id)
+        {
+            SqlCommand cmd = new SqlCommand("delete from [dbo].[Add_Author] where id='" + id + "'", con);
+            con.Open();
+
+            return cmd.ExecuteNonQuery();
+        }
+        public int updateAuthor(int id,string AuthorName, string AuthorDescription, string AuthorEmail, string AuthorImg)
+        {
+            SqlCommand cmd = new SqlCommand("update [dbo].[Add_Author] set AuthorName='" + AuthorName + "',AuthorDescription='" + AuthorDescription + "' ,AuthorEmail='" + AuthorEmail + "' ,AuthorImg='" + AuthorImg + "' where id='" + id + "'", con);
+            con.Open();
+
+            return cmd.ExecuteNonQuery();
         }
 
     }

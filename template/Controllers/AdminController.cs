@@ -121,7 +121,7 @@ namespace template.Controllers
         public async Task<IActionResult> UpdateBookData(ViewBooks vb, IFormFile formFile,int a=0)
         {
             var image = ContentDispositionHeaderValue.Parse(formFile.ContentDisposition).FileName.Trim();
-            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "admin/NewBooks", formFile.FileName);
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "NewBooks", formFile.FileName);
 
             using (System.IO.Stream stream = new FileStream(path, FileMode.Create))
             {
@@ -192,7 +192,7 @@ namespace template.Controllers
         public async Task<IActionResult> AddAuthor(AddAuthor Aab,IFormFile formFile)
         {
             var image = ContentDispositionHeaderValue.Parse(formFile.ContentDisposition).FileName.Trim();
-            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "admin/NewAuthor", formFile.FileName);
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "NewAuthor", formFile.FileName);
 
             using (System.IO.Stream stream = new FileStream(path, FileMode.Create))
             {
@@ -228,6 +228,36 @@ namespace template.Controllers
             }
 
             ViewBag.ImageUrls = imageUrls;
+            return View();
+        }
+        //-------------------------------------------delete new author
+        public IActionResult deleteNewAuthor(AddAuthor Aab, int id)
+        {
+            Aab.deleteAuthor(id);
+            return RedirectToAction("ViewAuthor");
+            // GET
+        }
+        //------------------------------------------------author update
+        [HttpPost]
+        public async Task<IActionResult> UpdateAuthor(AddAuthor Aab, IFormFile formFile)
+        {
+            var image = ContentDispositionHeaderValue.Parse(formFile.ContentDisposition).FileName.Trim();
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "NewAuthor", formFile.FileName);
+
+            using (System.IO.Stream stream = new FileStream(path, FileMode.Create))
+            {
+                await formFile.CopyToAsync(stream);
+            }
+            string serializableString = image.ToString();
+            TempData["image_name"] = serializableString;
+
+            //TempData["image_name"] = image;
+            Aab.AuthorImg = image.ToString();
+            Aab.updateAuthor(Aab.id,Aab.AuthorName, Aab.AuthorDescription, Aab.AuthorEmail, Aab.AuthorImg);
+            return RedirectToAction("AddAuthor");
+        }
+        public IActionResult UpdateAuthor()
+        {
             return View();
         }
         //----------------------------------------------logout
