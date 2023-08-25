@@ -230,7 +230,10 @@ namespace template.Controllers
             ViewBag.ImageUrls = imageUrls;
             return View();
         }
-        //-------------------------------------------delete new author
+
+        //----------------------------------------------delete author
+
+
         public IActionResult deleteNewAuthor(AddAuthor Aab, int id)
         {
             Aab.deleteAuthor(id);
@@ -260,6 +263,15 @@ namespace template.Controllers
         {
             return View();
         }
+
+        //---------------------------------------------------User list
+        public IActionResult UserList(UserList ul)
+        {
+            DataSet ds = ul.selectUserList();
+            ViewBag.selectUser_data = ds.Tables[0];
+            return View();
+        }
+
         //----------------------------------------------logout
         public IActionResult Logout()
         {
