@@ -11,14 +11,14 @@ namespace template.Models
 
         SqlConnection con = new SqlConnection("Data Source=.\\SQLEXPRESS;database=project;User Id=sa;pwd=12345");
         public int UserRegister(string username , string email,string password) {
-            SqlCommand cmd = new SqlCommand("insert into [dbo].[UserLogin](username,email,password)values('"+username+"','"+email+"','"+password+"')",con);
+            SqlCommand cmd = new SqlCommand("insert into [dbo].[User_Login](username,email,password)values('"+username+"','"+email+"','"+password+"')",con);
             con.Open();
             return cmd.ExecuteNonQuery();
 
         }
         public DataSet UserLoginData(string email,string password)
         {
-            SqlCommand cmd = new SqlCommand("select * from [dbo].[UserLogin] where email='" + email + "' and password='" + password + "'", con);
+            SqlCommand cmd = new SqlCommand("select * from [dbo].[User_Login] where email='" + email + "' and password='" + password + "'", con);
 
 			SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataSet ds = new DataSet();

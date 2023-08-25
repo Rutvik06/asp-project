@@ -264,14 +264,20 @@ namespace template.Controllers
             return View();
         }
 
-        //---------------------------------------------------User list
+        //---------------------------------------------------select User list
         public IActionResult UserList(UserList ul)
         {
             DataSet ds = ul.selectUserList();
             ViewBag.selectUser_data = ds.Tables[0];
             return View();
         }
-
+        //-----------------------------------------------delete user
+        public IActionResult deleteUser(UserList ul, int id)
+        {
+            ul.deleteUser(id);
+            return RedirectToAction("UserList");
+            // GET
+        }
         //----------------------------------------------logout
         public IActionResult Logout()
         {

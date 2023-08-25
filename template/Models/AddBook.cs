@@ -18,7 +18,7 @@ namespace template.Models
         {
             // Use parameterized query to prevent SQL injection
             
-                SqlCommand cmd = new SqlCommand("INSERT INTO [dbo].[AddBook] (BookName, BookCategory, BookPrice, BookDescription, BookAuthor, BookImage) " +
+                SqlCommand cmd = new SqlCommand("INSERT INTO [dbo].[Add_Book] (BookName, BookCategory, BookPrice, BookDescription, BookAuthor, BookImage) " +
                                                 "VALUES ('"+BookName+"', '"+BookCategory+"', '"+BookPrice+"', '"+BookDescription+"', '"+BookAuthor+"', '"+BookImage+"')", con);
                 con.Open();
 

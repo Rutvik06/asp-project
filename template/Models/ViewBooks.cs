@@ -16,7 +16,7 @@ namespace template.Models
 
         public DataSet selectNewBook()
         {
-            SqlCommand cmd = new SqlCommand("select * from[dbo].[AddBook]", con);
+            SqlCommand cmd = new SqlCommand("select * from[dbo].[Add_Book]", con);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataSet ds = new DataSet();
             da.Fill(ds);
@@ -25,14 +25,14 @@ namespace template.Models
         }
         public int deleteBook(int id)
         {
-            SqlCommand cmd = new SqlCommand("delete from [dbo].[AddBook] where id='" + id + "'", con);
+            SqlCommand cmd = new SqlCommand("delete from [dbo].[Add_Book] where id='" + id + "'", con);
             con.Open();
 
             return cmd.ExecuteNonQuery();
         }
         public int updateBook(int id,string BookName, string BookCategory, string BookPrice, string BookDescription, string BookAuthor, string BookImage)
         {
-            SqlCommand cmd = new SqlCommand("update [dbo].[AddBook] set BookName='" + BookName + "',BookCategory='" + BookCategory + "' ,BookPrice='" + BookPrice + "' ,BookDescription='" + BookDescription + "' ,BookAuthor='" + BookAuthor + "' ,BookImage='" + BookImage + "' where id='" + id + "'", con);
+            SqlCommand cmd = new SqlCommand("update [dbo].[Add_Book] set BookName='" + BookName + "',BookCategory='" + BookCategory + "' ,BookPrice='" + BookPrice + "' ,BookDescription='" + BookDescription + "' ,BookAuthor='" + BookAuthor + "' ,BookImage='" + BookImage + "' where id='" + id + "'", con);
             con.Open();
 
             return cmd.ExecuteNonQuery();

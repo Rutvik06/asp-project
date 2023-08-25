@@ -16,5 +16,12 @@ namespace template.Models
 
             return ds;
         }
+        public int deleteUser(int id)
+        {
+            SqlCommand cmd = new SqlCommand("delete from [dbo].[Add_Account] where id='" + id + "'", con);
+            con.Open();
+
+            return cmd.ExecuteNonQuery();
+        }
     }
 }

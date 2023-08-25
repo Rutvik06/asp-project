@@ -672,7 +672,7 @@
 										<div class="price">
 												<span class="price-num"><i class="fa-solid fa-indian-rupee-sign"></i>@dr["BookPrice"].ToString()</span>
 										</div>
-										<a asp-action="Shop_Cart" asp-controller="Home" class="btn btn-secondary box-btn btnhover btnhover2"><i class="flaticon-shopping-cart-1 m-r10"></i> Add to cart</a>
+											<a asp-action="BooksGridView" asp-controller="Home" asp-route-bookId="@dr["id"]" class="btn btn-secondary box-btn btnhover btnhover2"><i class="flaticon-shopping-cart-1 m-r10"></i> Add to cart</a>
 									</div>
 								</div>
 							</div>

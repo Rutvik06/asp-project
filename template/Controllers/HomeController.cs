@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Cors.Infrastructure;
+using Microsoft.AspNetCore.Mvc;
 using System.Data;
 using System.Diagnostics;
 using System.Net;
+using System.Security.Claims;
 using template.Models;
 
 namespace template.Controllers
@@ -149,8 +151,33 @@ namespace template.Controllers
                 imageUrls.Add(Url.Content("~/NewBooks/" + dr["BookImage"].ToString()));
             }
             ViewBag.ImageUrls = imageUrls;
-            return View();
+			
+
+			return View();
 		}
+		//----------------------------------------------------add to cart function
+
+		[HttpPost]
+		public IActionResult AddToCart(int id, AddtoCart atc)
+		{
+			if (!User.Identity.IsAuthenticated)
+			{
+				// Redirect to login page or show a message
+				return RedirectToAction("Login", "Account");
+			}
+
+			string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+			// Call a service or repository method to add the book to the user's cart
+			atc.UserId = userId; // Set the UserId from the authenticated user
+			atc.Addedon = DateTime.Now; // Set the current date and time
+
+			// Call the AddtoCartData method with the corrected parameters
+			atc.AddtoCartData(atc.UserId, atc.BookName, atc.BookPrice, atc.BookQuantity, atc.BookImg);
+
+			return RedirectToAction("BooksGridView");
+		}
+
 		public IActionResult BlogDetail()
 		{
 			return View();

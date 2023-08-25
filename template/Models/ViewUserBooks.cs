@@ -11,7 +11,7 @@ namespace template.Models
 
         public DataSet selectUserSideBooks()
         {
-            SqlCommand cmd = new SqlCommand("select * from[dbo].[AddBook]", con);
+            SqlCommand cmd = new SqlCommand("select * from[dbo].[Add_Book]", con);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataSet ds = new DataSet();
             da.Fill(ds);
@@ -20,7 +20,7 @@ namespace template.Models
         }
 		//public DataSet selectUserSideBookSingleBook(int id)
 		//{
-		//	SqlCommand cmd = new SqlCommand("select * from[dbo].[AddBook] where id = '"+id+"'", con);
+		//	SqlCommand cmd = new SqlCommand("select * from[dbo].[Add_Book] where id = '"+id+"'", con);
 		//	SqlDataAdapter da = new SqlDataAdapter(cmd);
 		//	DataSet ds = new DataSet();
 		//	da.Fill(ds);
@@ -29,7 +29,7 @@ namespace template.Models
 		//}
 		public DataSet selectUserSideBookSingleBook(int id)
 		{
-			SqlCommand cmd = new SqlCommand("SELECT * FROM [dbo].[AddBook] WHERE id = @id", con);
+			SqlCommand cmd = new SqlCommand("SELECT * FROM [dbo].[Add_Book] WHERE id = @id", con);
 			cmd.Parameters.AddWithValue("@id", id); // Use parameters to prevent SQL injection
 			SqlDataAdapter da = new SqlDataAdapter(cmd);
 			DataSet ds = new DataSet();
