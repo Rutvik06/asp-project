@@ -32,6 +32,12 @@ namespace template.Models
 
             return ds;
         }
+        public int deleteAuthor(int id)
+        {
+            SqlCommand cmd = new SqlCommand("delete from [dbo].[Add_Author] where id='" + id + "'", con);
+            con.Open();
 
+            return cmd.ExecuteNonQuery();
+        }
     }
 }
