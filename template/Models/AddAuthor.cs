@@ -37,7 +37,6 @@ namespace template.Models
         {
             SqlCommand cmd = new SqlCommand("delete from [dbo].[Add_Author] where id='" + id + "'", con);
             con.Open();
-
             return cmd.ExecuteNonQuery();
         }
         public int updateAuthor(int id,string AuthorName, string AuthorDescription, string AuthorEmail, string AuthorImg)

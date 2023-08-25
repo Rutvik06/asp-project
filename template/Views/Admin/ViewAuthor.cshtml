@@ -54,7 +54,10 @@
                                         </td>
                                         <td>
                                             <div class="flex align-items-center list-user-action">
+
                                                     <a class="bg-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit" asp-controller="Admin" asp-action="UpdateAuthor" asp-route-id="@dr["id"]"><i class="ri-pencil-line"></i></a>
+
+
                                                     <a class="bg-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete" href="@Url.Action("deleteNewAuthor", "Admin", new { id = dr["id"] })"><i class="ri-delete-bin-line"></i></a>
                                             </div>
                                         </td>
