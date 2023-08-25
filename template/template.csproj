@@ -12,7 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\NewBooks\" />
+    <Folder Include="wwwroot\admin\NewBooks\" />
+    <Folder Include="wwwroot\admin\NewAuthor\" />
   </ItemGroup>
 
 </Project>

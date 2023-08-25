@@ -121,7 +121,7 @@ namespace template.Controllers
         public async Task<IActionResult> UpdateBookData(ViewBooks vb, IFormFile formFile,int a=0)
         {
             var image = ContentDispositionHeaderValue.Parse(formFile.ContentDisposition).FileName.Trim();
-            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "NewBooks", formFile.FileName);
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "admin/NewBooks", formFile.FileName);
 
             using (System.IO.Stream stream = new FileStream(path, FileMode.Create))
             {
@@ -164,7 +164,7 @@ namespace template.Controllers
             return RedirectToAction("ViewCategory");
             // GET
         }
-        //----------------------------------------------update category
+        //----------------------------------------------update category post
         [HttpPost]
         public IActionResult UpdateCategory(AddCategory ac, int a = 0)
         {
@@ -175,13 +175,59 @@ namespace template.Controllers
             ac.updateNewCategory(ac.id,category,description);
             return RedirectToAction("UpdateCategory");
         }
+        //-----------------------------------------------update category get
         [HttpGet]
         public IActionResult UpdateCategory(AddCategory ac)
         {
             return View();
         }
+        //---------------------------------------------add category
         public IActionResult AddCategory()
         {
+            return View();
+        }
+
+        //------------------------------------------------author post
+        [HttpPost]
+        public async Task<IActionResult> AddAuthor(AddAuthor Aab,IFormFile formFile)
+        {
+            var image = ContentDispositionHeaderValue.Parse(formFile.ContentDisposition).FileName.Trim();
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "admin/NewAuthor", formFile.FileName);
+
+            using (System.IO.Stream stream = new FileStream(path, FileMode.Create))
+            {
+                await formFile.CopyToAsync(stream);
+            }
+            string serializableString = image.ToString();
+            TempData["image_name"] = serializableString;
+
+            //TempData["image_name"] = image;
+            Aab.AuthorImg = image.ToString();
+            Aab.AddNewBook(Aab.AuthorName, Aab.AuthorDescription, Aab.AuthorEmail, Aab.AuthorImg);          
+            return RedirectToAction("AddAuthor");
+        }
+        //-------------------------------------------------- add author get
+
+        public IActionResult AddAuthor()
+        {
+            return View();
+        }
+        //-------------------------------------------------------view new author
+        [HttpGet]
+        public IActionResult ViewAuthor(AddAuthor Aab)
+        {
+            DataSet ds = Aab.selectNewAuthor();
+            ViewBag.author_data = ds.Tables[0];
+
+            //ViewBag.image = TempData["image_name"];
+            //ViewBag.ImageUrl = Url.Content("~/image/" + TempData["image_name"]);
+            List<string> imageUrls = new List<string>();
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                imageUrls.Add(Url.Content("~/NewAuthor/" + dr["AuthorImg"].ToString()));
+            }
+
+            ViewBag.ImageUrls = imageUrls;
             return View();
         }
         //----------------------------------------------logout

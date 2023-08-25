@@ -28,15 +28,7 @@ namespace template.Models
             
         }
 
-        //public DataSet selectNewBook()
-        //{
-        //    SqlCommand cmd = new SqlCommand("select * from[dbo].[AddBook]", con);
-        //    SqlDataAdapter da = new SqlDataAdapter(cmd);
-        //    DataSet ds = new DataSet();
-        //    da.Fill(ds);
-
-        //    return ds;
-        //}
+     
 
     }
 

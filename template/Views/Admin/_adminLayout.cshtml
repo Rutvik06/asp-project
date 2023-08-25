@@ -14,6 +14,8 @@
     <title>Booksto - Responsive Bootstrap 4 Admin Dashboard Template</title>
     <!-- Favicon -->
     <link rel="shortcut icon" href="~/admin/images/favicon.ico" />
+    <link rel="stylesheet" href="~/admin/css/dataTables.bootstrap4.min.css">
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="~/admin/css/bootstrap.min.css">
     <!-- Typography CSS -->
@@ -84,6 +86,14 @@
                             <ul id="category" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle" style="">
                                 <li><a asp-action="AddCategory" asp-controller="Admin"><i class="las la-plus-circle"></i>Add Category</a></li>
                                 <li><a asp-action="ViewCategory" asp-controller="Admin"><i class="las la-eye"></i>View Category</a></li>
+
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#author" class="iq-waves-effect" data-toggle="collapse" aria-expanded="false"><span class="ripple rippleEffect"></span><i class="ri-book-2-line"></i><span>author</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                            <ul id="author" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle" style="">
+                                <li><a asp-action="AddAuthor" asp-controller="Admin"><i class="las la-plus-circle"></i>Add Author</a></li>
+                                <li><a asp-action="ViewAuthor" asp-controller="Admin"><i class="las la-eye"></i>View Author</a></li>
 
                             </ul>
                         </li>
@@ -457,6 +467,10 @@
 <script src="~/admin/js/jquery.min.js"></script>
 <script src="~/admin/js/popper.min.js"></script>
 <script src="~/admin/js/bootstrap.min.js"></script>
+    <script src="~/admin/js/jquery.dataTables.min.js"></script>
+
+    <script src="~/admin/js/dataTables.bootstrap4.min.js"></script>
+
 <!-- Appear JavaScript -->
 <script src="~/admin/js/jquery.appear.js"></script>
 <!-- Countdown JavaScript -->
