@@ -54,25 +54,40 @@ namespace template.Controllers
 		}
 
 		//---------------------------------------single user side book view
+		//[HttpGet]
+		//public IActionResult Books_Detail(ViewUserBooks vub,int id,int a=0)
+		//{
+		//	//DataSet ds = vub.selectUserSideBooks();
+		//	//ViewBag.user_data = ds.Tables[0];
+		//	//List<string> imageUrls = new List<string>();
+		//	//foreach (DataRow dr in ds.Tables[0].Rows)
+		//	//{
+		//	//	imageUrls.Add(Url.Content("~/NewBooks/" + dr["BookImage"].ToString()));
+		//	//}
+		//	//ViewBag.ImageUrls = imageUrls;
+		//	vub.selectUserSideBookSingleBook(id);
+		//	return View();
+		//}
 		[HttpGet]
-		public IActionResult Books_Detail(ViewUserBooks vub,string id,int a=0)
+		public IActionResult Books_Detail(ViewUserBooks vub, int id, int a = 0)
 		{
-			if(int.TryParse(id,out int bookId))
+			DataSet ds = vub.selectUserSideBookSingleBook(id);
+
+			if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
 			{
+				DataRow bookDataRow = ds.Tables[0].Rows[0];
 
-			DataSet ds = vub.selectUserSideBookSingleBook(bookId) ;
+				List<string> imageUrls = new List<string>();
+				imageUrls.Add(Url.Content("~/NewBooks/" + bookDataRow["BookImage"].ToString()));
 
-			DataRow bookDataRow = ds.Tables[0].Rows[0]; // Assuming there's only one row for the selected book
+				ViewBag.BookData = bookDataRow;
+				ViewBag.ImageUrls = imageUrls;
 
-			List<string> imageUrls = new List<string>();
-			imageUrls.Add(Url.Content("~/NewBooks/" + bookDataRow["BookImage"].ToString()));
-
-			ViewBag.BookData = bookDataRow;
-			ViewBag.ImageUrls = imageUrls;
-			//vub.selectUserSideBookSingleBook(id);
 			}
-			return View();
+			
+				return View();
 		}
+
 		public IActionResult Shop_Cart()
 		{
 			return View();

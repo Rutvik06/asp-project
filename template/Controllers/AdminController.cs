@@ -136,6 +136,54 @@ namespace template.Controllers
             return RedirectToAction("UpdateBookData");
         }
 
+        //------------------------------------------------- category get
+
+        [HttpGet]
+        public IActionResult ViewCategory(AddCategory ac,int a = 0)
+        {
+            DataSet ds = ac.selectNewCategory();
+            ViewBag.category_data = ds.Tables[0];
+            return View();
+        }
+
+        //------------------------------------------------- category post
+        [HttpPost]
+        public IActionResult AddCategory(AddCategory ac)
+        {
+            string category = ac.category;
+            string description = ac.description;
+            ac.AddNewCategory(category,description);
+            return RedirectToAction("AddCategory");
+        }
+
+        //----------------------------------------------delete new category
+
+        public IActionResult deleteNewCategory(AddCategory ac, int id)
+        {
+            ac.deleteNewCategory(id);
+            return RedirectToAction("ViewCategory");
+            // GET
+        }
+        //----------------------------------------------update category
+        [HttpPost]
+        public IActionResult UpdateCategory(AddCategory ac, int a = 0)
+        {
+
+            string category = ac.category;
+            string description = ac.description;
+
+            ac.updateNewCategory(ac.id,category,description);
+            return RedirectToAction("UpdateCategory");
+        }
+        [HttpGet]
+        public IActionResult UpdateCategory(AddCategory ac)
+        {
+            return View();
+        }
+        public IActionResult AddCategory()
+        {
+            return View();
+        }
         //----------------------------------------------logout
         public IActionResult Logout()
         {

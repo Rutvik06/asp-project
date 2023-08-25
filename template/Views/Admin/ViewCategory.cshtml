@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewData["Title"] = "ViewCategory";
+    Layout = "~/Views/Admin/_adminLayout.cshtml";
+}
+@*    @foreach (System.Data.DataRow dr in ViewBag.user_data.Rows)
+    {
+        <tr>
+            <td>
+                @dr["category"].ToString()
+            </td>
+        </tr>
+    } *@
+<div id="content-page" class="content-page">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="iq-card">
+                    <div class="iq-card-header d-flex justify-content-between">
+                        <div class="iq-header-title">
+                            <h4 class="card-title">Category Lists</h4>
+                        </div>
+                        <div class="iq-card-header-toolbar d-flex align-items-center">
+                            <a asp-action="AddCategory" asp-controller="Admin" class="btn btn-primary">Add New Category</a>
+                        </div>
+                    </div>
+                    <div class="iq-card-body">
+                        <div class="table-responsive">
+                            <table class="data-tables table table-striped table-bordered" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th width="5%">No</th>
+                                        <th width="20%">Category Name</th>
+                                        <th width="65%">Category Description</th>
+                                        <th width="10%">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (System.Data.DataRow dr in ViewBag.category_data.Rows)
+                                    {
+                                    <tr>
+
+                                            <td>@dr["id"].ToString()</td>
+                                            <td>
+                                                @dr["category"].ToString()
+                                            </td>
+                                        <td>
+
+                                                <p class="mb-0">@dr["description"].ToString()</p>
+                                        </td>
+                                        <td>
+                                            <div class="flex align-items-center list-user-action">
+                                                    <a class="bg-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit" asp-controller="Admin" asp-action="UpdateCategory" asp-route-id="@dr["id"]"><i class="ri-pencil-line"></i></a>
+
+
+                                                 <a class="bg-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete" href="@Url.Action("deleteNewCategory", "Admin", new { id = dr["id"] })"><i class="ri-delete-bin-line"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -657,7 +657,7 @@
 									</label>
 								</div>
 								<div class="dz-content">
-										<h5 class="title"><a asp-action="Books_Detail" asp-controller="Home" asp-route-id="dr[" id"]">@dr["BookName"].ToString()</a></h5>
+										<h5 class="title"><a asp-action="Books_Detail" asp-controller="Home" asp-route-id="@dr["id"]">@dr["BookName"].ToString()</a></h5>
 									<ul class="dz-tags">
 											<li><a asp-action="Books_Detail" asp-controller="Home" asp-route-id="dr["id"]">@dr["BookCategory"].ToString()</a></li>
 									</ul>
@@ -670,7 +670,7 @@
 									</ul>
 									<div class="book-footer">
 										<div class="price">
-												<span class="price-num">@dr["BookPrice"].ToString()</span>
+												<span class="price-num"><i class="fa-solid fa-indian-rupee-sign"></i>@dr["BookPrice"].ToString()</span>
 										</div>
 										<a asp-action="Shop_Cart" asp-controller="Home" class="btn btn-secondary box-btn btnhover btnhover2"><i class="flaticon-shopping-cart-1 m-r10"></i> Add to cart</a>
 									</div>

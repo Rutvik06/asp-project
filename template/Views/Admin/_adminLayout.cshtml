@@ -80,6 +80,14 @@
                         </ul>
                     </li>
                         <li>
+                            <a href="#category" class="iq-waves-effect" data-toggle="collapse" aria-expanded="false"><span class="ripple rippleEffect"></span><i class="ri-book-2-line"></i><span>category</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                            <ul id="category" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle" style="">
+                                <li><a asp-action="AddCategory" asp-controller="Admin"><i class="las la-plus-circle"></i>Add Category</a></li>
+                                <li><a asp-action="ViewCategory" asp-controller="Admin"><i class="las la-eye"></i>View Category</a></li>
+
+                            </ul>
+                        </li>
+                        <li>
                             <a href="#book" class="iq-waves-effect" data-toggle="collapse" aria-expanded="false"><span class="ripple rippleEffect"></span><i class="ri-book-2-line"></i><span>Books</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
                             <ul id="book" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle" style="">
                                 <li><a asp-action="AddBooks" asp-controller="Admin"><i class="las la-plus-circle"></i>Add Books</a></li>
@@ -87,6 +95,7 @@
                                 
                             </ul>
                         </li>
+                       
                   
                     
                    

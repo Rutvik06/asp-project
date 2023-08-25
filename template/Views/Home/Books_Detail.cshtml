@@ -3,22 +3,23 @@
     ViewData["Title"] = "Books_Detail";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h5 class="title">@ViewBag.BookData["BookName"].ToString()</h5>
-<p>@ViewBag.BookData["Author"].ToString()</p>
-<img src="@ViewBag.ImageUrls[0]" alt="Image" />
+<h5 class="title">@* @ViewBag.BookData["BookName"].ToString() *@</h5>
+@* <p>@ViewBag.BookData["Author"].ToString()</p> *@
+@* <img src="@ViewBag.ImageUrls[0]" alt="Image" /> *@
 <!-- Display other book details as needed -->
-@* <div class="page-content bg-grey">
+<div class="page-content bg-grey">
 		<section class="content-inner-1">
 			<div class="container">
 				<div class="row book-grid-row style-4 m-b60">
 					<div class="col">
 						<div class="dz-box">
 							<div class="dz-media">
-								<img src="images/books/book16.png" alt="book">
+							<img src="@ViewBag.ImageUrls[0]" alt="Image" />
+
 							</div>
 							<div class="dz-content">
 								<div class="dz-header">
-									<h3 class="title">Think and Grow Rich</h3>
+								<h3 class="title">@ViewBag.BookData["BookName"].ToString()</h3>
 									<div class="shop-item-rating">
 										<div class="d-lg-flex d-sm-inline-flex d-flex align-items-center">
 											<ul class="dz-rating">
@@ -47,7 +48,7 @@
 												<div class="writer-info">
 													<img src="images/profile2.jpg" alt="book">
 													<div>
-														<span>Writen by</span>Kevin Smiley
+													<span>Writen by</span>@ViewBag.BookData["BookAuthor"].ToString()
 													</div>
 												</div>
 											</li>
@@ -59,12 +60,11 @@
 									<p class="text-2">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem</p>
 									<div class="book-footer">
 										<div class="price">
-											<h5>$54.78</h5>
-											<p class="p-lr10">$70.00</p>
+										<h5><i class="fa-solid fa-indian-rupee-sign"></i>@ViewBag.BookData["BookPrice"].ToString()</h5>
 										</div>
 										<div class="product-num">
 											<div class="quantity btn-quantity style-1 me-3">
-												<input id="demo_vertical2" type="text" value="1" name="demo_vertical2" />
+												<input id="demo_vertical2" type="number" value="1" name="demo_vertical2" />
 											</div>
 											<a asp-action="Shop_Cart" asp-controller="Home" class="btn btn-primary btnhover btnhover2"><i class="flaticon-shopping-cart-1"></i> <span>Add to cart</span></a>
 											<div class="bookmark-btn style-1 d-none d-sm-block">
@@ -415,4 +415,3 @@
 		</section>
 		<!-- Newsletter End -->
 	</div>
- *@
