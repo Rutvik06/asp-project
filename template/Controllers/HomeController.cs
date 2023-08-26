@@ -75,9 +75,20 @@ namespace template.Controllers
 			
 				return View();
 		}
-
-		public IActionResult Shop_Cart()
+		//------------------------------------------------- cart item view
+		[HttpGet]
+		public IActionResult Shop_Cart(AddtoCart atc,int UserId)
 		{
+			DataSet ds = atc.selectWithUserId(UserId);
+			ViewBag.Cart_Data = ds.Tables[0];
+			List<string> imageUrls = new List<string>();
+			foreach (DataRow dr in ds.Tables[0].Rows)
+			{
+				imageUrls.Add(Url.Content("~/NewBooks/" + dr["BookImg"].ToString()));
+			}
+
+			ViewBag.ImageUrls = imageUrls;
+
 			return View();
 		}
 
@@ -141,9 +152,12 @@ namespace template.Controllers
 		//----------------------------------------books grid view for purchase
 
 		[HttpGet]
-		public IActionResult BooksGridView(ViewUserBooks vub)
+		public IActionResult BooksGridView(ViewUserBooks vub,AddCategory Aac)
 		{
-            DataSet ds = vub.selectUserSideBooks();
+
+			DataSet categoryData = Aac.selectNewCategory();
+			ViewBag.CategoryData = categoryData;
+			DataSet ds = vub.selectUserSideBooks();
             ViewBag.user_data = ds.Tables[0];
             List<string> imageUrls = new List<string>();
             foreach (DataRow dr in ds.Tables[0].Rows)
@@ -158,32 +172,56 @@ namespace template.Controllers
 		//----------------------------------------------------add to cart function
 
 		[HttpPost]
-		public IActionResult AddToCart(int id, AddtoCart atc)
+		public IActionResult AddToCart(int id)
 		{
 			if (TempData.Peek("UserLogin_id") != null)
 			{
-				// Replace these placeholders with actual book details
-				string bookName = "Sample Book Name";
-				string bookPrice = "100";
-				string bookQuantity = "1";
-				string bookImg = "book-image.jpg";
+				ViewBooks vb = new ViewBooks();
+				DataSet bookData = vb.selectSinNewBook(id); // Retrieve book data using the id from the Add_Book table
 
-				atc.UserId = TempData.Peek("UserLogin_id").ToString(); // Get the user ID from TempData
-				atc.Addedon = DateTime.Now;
+				if (bookData.Tables[0].Rows.Count > 0)
+				{
+					DataRow bookRow = bookData.Tables[0].Rows[0];
+					string bookName = bookRow["BookName"].ToString();
+					string bookPrice = bookRow["BookPrice"].ToString();
 
-				// Call the AddtoCartData method with the corrected parameters
-				atc.AddtoCartData(atc.UserId, bookName, bookPrice, bookQuantity, bookImg, atc.Addedon);
+					string userId = TempData.Peek("UserLogin_id").ToString();
+					DateTime addedOn = DateTime.Now;
 
-				return RedirectToAction("BooksGridView");
+					// Assuming you want to add a quantity of 1 and an empty image URL
+					string bookQuantity = "1";
+					string bookImg = bookRow["BookImage"].ToString();
+
+					// Create an instance of AddtoCart
+					AddtoCart atc = new AddtoCart();
+					// Call the AddtoCartData method with the retrieved book details
+					atc.AddtoCartData(userId, bookName, bookPrice, bookQuantity, bookImg, addedOn);
+
+					return RedirectToAction("BooksGridView");
+					//bool success = true; // Replace with your actual logic
+
+					//return Json(new { success });
+				}
+				else
+				{
+					// Handle case where book details couldn't be retrieved
+					return RedirectToAction("BooksGridView"); // or return an error view
+				}
 			}
 
 			return RedirectToAction("Login");
 		}
 
 
+
 		public IActionResult BlogDetail()
 		{
 			return View();
+		}
+		public IActionResult LogOut()
+		{
+			TempData.Clear();
+			return RedirectToAction("Login");
 		}
 		public IActionResult Privacy()
         {

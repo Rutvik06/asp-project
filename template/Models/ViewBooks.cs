@@ -46,6 +46,17 @@ namespace template.Models
 
 			return ds;
 		}
+		public DataSet selectSinNewBook(int id)
+		{
+			SqlCommand cmd = new SqlCommand("SELECT * FROM [dbo].[Add_Book] WHERE id=@id", con);
+			cmd.Parameters.AddWithValue("@id", id);
+
+			SqlDataAdapter da = new SqlDataAdapter(cmd);
+			DataSet ds = new DataSet();
+			da.Fill(ds);
+
+			return ds;
+		}
 
 	}
 }

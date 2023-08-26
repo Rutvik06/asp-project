@@ -42,5 +42,16 @@ namespace template.Models
 
             return cmd.ExecuteNonQuery();
         }
-    }
+		public DataSet selectSinCategory(int id )
+		{
+			SqlCommand cmd = new SqlCommand("SELECT * FROM [dbo].[Add_Category] WHERE id=@id", con);
+			cmd.Parameters.AddWithValue("@id", id);
+
+			SqlDataAdapter da = new SqlDataAdapter(cmd);
+			DataSet ds = new DataSet();
+			da.Fill(ds);
+
+			return ds;
+		}
+	}
 }

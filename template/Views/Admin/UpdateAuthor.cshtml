@@ -1,4 +1,5 @@
-﻿
+﻿@model System.Data.DataSet
+
 @{
     ViewData["Title"] = "UpdateAuthor";
     Layout = "~/Views/Admin/_adminLayout.cshtml";
@@ -18,22 +19,22 @@
                         <form method="post" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label>Author Name:</label>
-                                <input type="text" class="form-control" name="AuthorName">
+                                <input type="text" class="form-control" name="AuthorName" value="@Model.Tables[0].Rows[0]["AuthorName"]">
                             </div>
                             <div class="form-group">
                                 <label>Author Profile:</label>
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="customFile" name="formfile">
+                                    <input type="file" class="custom-file-input" id="customFile" name="formfile" value="@Model.Tables[0].Rows[0]["AuthorImg"]">
                                     <label class="custom-file-label" for="customFile">Choose file</label>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>Author Email:</label>
-                                <input type="email" class="form-control" name="AuthorEmail">
+                                <input type="email" class="form-control" name="AuthorEmail" value="@Model.Tables[0].Rows[0]["AuthorEmail"]">
                             </div>
                             <div class="form-group">
                                 <label>Author Description:</label>
-                                <textarea class="form-control" rows="4" name="AuthorDescription"></textarea>
+                                <textarea class="form-control" rows="4" name="AuthorDescription" value="@Model.Tables[0].Rows[0]["AuthorDescription"]"></textarea>
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button>
                             <button type="reset" class="btn btn-danger">Reset</button>

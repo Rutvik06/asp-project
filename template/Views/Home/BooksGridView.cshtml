@@ -1,4 +1,6 @@
-﻿
+﻿@model System.Data.DataSet
+@using System.Data;
+
 @{
     ViewData["Title"] = "BooksGridView";
 }
@@ -36,108 +38,29 @@
 							<div class="accordion-item">
 								<button class="accordion-button" id="headingOne" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Shop by Category</button>
 								<div id="collapseOne" class="accordion-collapse collapse show accordion-body" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+								
 									<div class="widget dz-widget_services d-flex justify-content-between">
 										<div class="">
-											<div class="form-check search-content">
-												<input class="form-check-input" type="checkbox" value="" id="productCheckBox-01">
-												<label class="form-check-label" for="productCheckBox-01">
-													Action
-												</label>
-											</div>
-											<div class="form-check search-content">
-												<input class="form-check-input" type="checkbox" value="" id="productCheckBox-02">
-												<label class="form-check-label" for="productCheckBox-02">
-													Advanture
-												</label>
-											</div>
-											<div class="form-check search-content">
-												<input class="form-check-input" type="checkbox" value="" id="productCheckBox-03">
-												<label class="form-check-label" for="productCheckBox-03">
-													Animation
-												</label>
-											</div>
-											<div class="form-check search-content">
-												<input class="form-check-input" type="checkbox" value="" id="productCheckBox-04">
-												<label class="form-check-label" for="productCheckBox-04">
-													Biography
-												</label>
-											</div>
-											<div class="form-check search-content">
-												<input class="form-check-input" type="checkbox" value="" id="productCheckBox-05">
-												<label class="form-check-label" for="productCheckBox-05">
-													Comedy
-												</label>
-											</div>
-											<div class="form-check search-content">
-												<input class="form-check-input" type="checkbox" value="" id="productCheckBox-06">
-												<label class="form-check-label" for="productCheckBox-06">
-													Crime
-												</label>
-											</div>
-											<div class="form-check search-content">
-												<input class="form-check-input" type="checkbox" value="" id="productCheckBox-07">
-												<label class="form-check-label" for="productCheckBox-07">
-													Documentary
-												</label>
-											</div>
-											<div class="form-check search-content">
-												<input class="form-check-input" type="checkbox" value="" id="productCheckBox-016">
-												<label class="form-check-label" for="productCheckBox-014">
-													Design
-												</label>
-											</div>
-										</div>
-										<div class="">
-											<div class="form-check search-content">
-												<input class="form-check-input" type="checkbox" value="" id="productCheckBox-08">
-												<label class="form-check-label" for="productCheckBox-08">
-													Fantasy
-												</label>
-											</div>
-											<div class="form-check search-content">
-												<input class="form-check-input" type="checkbox" value="" id="productCheckBox-09">
-												<label class="form-check-label" for="productCheckBox-09">
-													History
-												</label>
-											</div>
-											<div class="form-check search-content">
-												<input class="form-check-input" type="checkbox" value="" id="productCheckBox-010">
-												<label class="form-check-label" for="productCheckBox-010">
-													Horror
-												</label>
-											</div>
-											<div class="form-check search-content">
-												<input class="form-check-input" type="checkbox" value="" id="productCheckBox-011">
-												<label class="form-check-label" for="productCheckBox-011">
-													Mystery
-												</label>
-											</div>
-											<div class="form-check search-content">
-												<input class="form-check-input" type="checkbox" value="" id="productCheckBox-012">
-												<label class="form-check-label" for="productCheckBox-012">
-													Romance
-												</label>
-											</div>
-											<div class="form-check search-content">
-												<input class="form-check-input" type="checkbox" value="" id="productCheckBox-013">
-												<label class="form-check-label" for="productCheckBox-013">
-													Sci-fi
-												</label>
-											</div>
-											<div class="form-check search-content">
-												<input class="form-check-input" type="checkbox" value="" id="productCheckBox-014">
-												<label class="form-check-label" for="productCheckBox-014">
-													Sport
-												</label>
-											</div>
-											<div class="form-check search-content">
-												<input class="form-check-input" type="checkbox" value="" id="productCheckBox-015">
-												<label class="form-check-label" for="productCheckBox-014">
-													Science
-												</label>
-											</div>
+											@{
+												var categories = new HashSet<string>();
+												foreach (DataRow row in ViewBag.CategoryData.Tables[0].Rows)
+												{
+													var category = row["category"].ToString();
+													if (!categories.Contains(category))
+													{
+														categories.Add(category);
+														<div class="form-check search-content">
+															<input class="form-check-input" type="checkbox" value="@category" id="productCheckBox-@category">
+															<label class="form-check-label" for="productCheckBox-@category">
+																@category
+															</label>
+														</div>
+													}
+												}
+											}
 										</div>
 									</div>
+
 								</div>
 							</div>
 							<div class="accordion-item">
@@ -652,11 +575,11 @@
 								</div>
 								<div class="bookmark-btn style-2">
 									<input class="form-check-input" type="checkbox" id="flexCheckDefault1">
-										<button id="voiceButton">
+								
 									<label class="form-check-label" for="flexCheckDefault1">
 										<i class="flaticon-heart"></i>
 									</label>
-										</button>
+										
 								</div>
 								<div class="dz-content">
 										<h5 class="title"><a asp-action="Books_Detail" asp-controller="Home" asp-route-id="@dr["id"]">@dr["BookName"].ToString()</a></h5>
@@ -675,7 +598,14 @@
 												<span class="price-num"><i class="fa-solid fa-indian-rupee-sign"></i>@dr["BookPrice"].ToString()</span>
 										</div>
 
-											<a asp-action="BooksGridView" asp-controller="Home" asp-route-bookId="@dr["id"]" type="submit" class="btn btn-secondary box-btn btnhover btnhover2"><i class="flaticon-shopping-cart-1 m-r10"></i> Add to cart</a>
+											<form method="post" asp-controller="Home" asp-action="AddToCart" class="add-to-cart-form">
+    <input type="hidden" name="id" value="@dr["id"]" /> <!-- Use the id parameter here -->
+    <button type="submit" class="btn btn-secondary box-btn btnhover btnhover2 add-to-cart-button">
+        <i class="flaticon-shopping-cart-1 m-r10"></i> Add to Cart
+    </button>
+</form>
+
+
 									</div>
 								</div>
 							</div>

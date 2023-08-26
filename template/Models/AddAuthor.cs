@@ -47,6 +47,17 @@ namespace template.Models
 
             return cmd.ExecuteNonQuery();
         }
+        public DataSet selectSinAuthor(int id)
+        {
+            SqlCommand cmd = new SqlCommand("SELECT * FROM [dbo].[Add_Author] WHERE id=@id", con);
+            cmd.Parameters.AddWithValue("@id", id);
+
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+
+            return ds;
+        }
 
     }
 }

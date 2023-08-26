@@ -186,7 +186,7 @@ namespace template.Controllers
         }
         //----------------------------------------------update category post
         [HttpPost]
-        public IActionResult UpdateCategory(AddCategory ac, int a = 0)
+        public IActionResult UpdateCategory(AddCategory ac)
         {
 
             string category = ac.category;
@@ -197,9 +197,12 @@ namespace template.Controllers
         }
         //-----------------------------------------------update category get
         [HttpGet]
-        public IActionResult UpdateCategory(AddCategory ac)
+        public IActionResult UpdateCategory(AddCategory ac,int id,int a=0)
         {
-            return View();
+			
+			DataSet categoryData = ac.selectSinCategory(id); 
+			
+			return View(categoryData);
         }
         //---------------------------------------------add category
         public IActionResult AddCategory()
@@ -260,7 +263,7 @@ namespace template.Controllers
             return RedirectToAction("ViewAuthor");
             // GET
         }
-        //------------------------------------------------author update
+        //------------------------------------------------author update post
         [HttpPost]
         public async Task<IActionResult> UpdateAuthor(AddAuthor Aab, IFormFile formFile)
         {
@@ -279,9 +282,13 @@ namespace template.Controllers
             Aab.updateAuthor(Aab.id,Aab.AuthorName, Aab.AuthorDescription, Aab.AuthorEmail, Aab.AuthorImg);
             return RedirectToAction("AddAuthor");
         }
-        public IActionResult UpdateAuthor()
+        //-----------------------------------------------------author update get
+        [HttpGet]
+        public IActionResult UpdateAuthor(AddAuthor Aab,int id,int a=0)
         {
-            return View();
+            DataSet authorData = Aab.selectSinAuthor(id);
+
+            return View(authorData);
         }
 
         //---------------------------------------------------select User list

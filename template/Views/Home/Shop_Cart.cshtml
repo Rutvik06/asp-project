@@ -4,9 +4,18 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@foreach (System.Data.DataRow dr in ViewBag.Cart_Data.Rows)
+{
+        <tr>
+            <td>
+                @dr["BookName"].ToString()
+			<p>@ViewBag.ImageUrls[ViewBag.Cart_Data.Rows.IndexOf(dr)]</p>
+			<img src="@ViewBag.ImageUrls[ViewBag.Cart_Data.Rows.IndexOf(dr)]" alt="Image" />
+            </td>
+        </tr>
+    }
 
-
-<div class="page-content">
+@* <div class="page-content">
 		<!-- inner page banner -->
 			<div class="dz-bnr-inr overlay-secondary-dark dz-bnr-inr-sm" style="background-image:url(images/background/bg3.jpg);">
 				<div class="container">
@@ -186,3 +195,4 @@
 	
 	</div>
 
+ *@
