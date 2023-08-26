@@ -45,7 +45,7 @@
                                 <tbody>
    @foreach (System.Data.DataRow dr in ViewBag.author_data.Rows)
    {
-                                        var author = dr["id"].ToString();
+                                        var author = dr["AuthorName"].ToString();
 
                                         if (!uniqueAuthor.Contains(author))
                                         {

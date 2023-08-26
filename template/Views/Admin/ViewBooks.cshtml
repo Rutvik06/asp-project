@@ -62,7 +62,7 @@
                                 <tbody>
                                     @foreach (System.Data.DataRow dr in ViewBag.user_data.Rows)
                                     {
-                                        var books = dr["id"].ToString();
+                                        var books = dr["BookName"].ToString();
 
                                         if (!uniqueBooks.Contains(books))
                                         {
