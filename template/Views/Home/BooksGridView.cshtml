@@ -652,9 +652,11 @@
 								</div>
 								<div class="bookmark-btn style-2">
 									<input class="form-check-input" type="checkbox" id="flexCheckDefault1">
+										<button id="voiceButton">
 									<label class="form-check-label" for="flexCheckDefault1">
 										<i class="flaticon-heart"></i>
 									</label>
+										</button>
 								</div>
 								<div class="dz-content">
 										<h5 class="title"><a asp-action="Books_Detail" asp-controller="Home" asp-route-id="@dr["id"]">@dr["BookName"].ToString()</a></h5>
@@ -672,7 +674,8 @@
 										<div class="price">
 												<span class="price-num"><i class="fa-solid fa-indian-rupee-sign"></i>@dr["BookPrice"].ToString()</span>
 										</div>
-											<a asp-action="BooksGridView" asp-controller="Home" asp-route-bookId="@dr["id"]" class="btn btn-secondary box-btn btnhover btnhover2"><i class="flaticon-shopping-cart-1 m-r10"></i> Add to cart</a>
+
+											<a asp-action="BooksGridView" asp-controller="Home" asp-route-bookId="@dr["id"]" type="submit" class="btn btn-secondary box-btn btnhover btnhover2"><i class="flaticon-shopping-cart-1 m-r10"></i> Add to cart</a>
 									</div>
 								</div>
 							</div>

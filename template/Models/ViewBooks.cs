@@ -37,6 +37,15 @@ namespace template.Models
 
             return cmd.ExecuteNonQuery();
         }
-       
-    }
+		public DataSet selectUpdateBook(int id)
+		{
+			SqlCommand cmd = new SqlCommand("select * from[dbo].[Add_Book] where id='"+id+"'", con);
+			SqlDataAdapter da = new SqlDataAdapter(cmd);
+			DataSet ds = new DataSet();
+			da.Fill(ds);
+
+			return ds;
+		}
+
+	}
 }

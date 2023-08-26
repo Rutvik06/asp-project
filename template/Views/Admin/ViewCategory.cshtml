@@ -11,6 +11,9 @@
             </td>
         </tr>
     } *@
+@{
+    var uniqueCategories = new HashSet<string>();
+}
 <div id="content-page" class="content-page">
     <div class="container-fluid">
         <div class="row">
@@ -38,6 +41,10 @@
                                 <tbody>
                                     @foreach (System.Data.DataRow dr in ViewBag.category_data.Rows)
                                     {
+                                        var category = dr["category"].ToString();
+                                        if (!uniqueCategories.Contains(category))
+                                        {
+                                            uniqueCategories.Add(category);
                                     <tr>
 
                                             <td>@dr["id"].ToString()</td>
@@ -57,6 +64,7 @@
                                             </div>
                                         </td>
                                     </tr>
+                                    }
                                     }
                                 </tbody>
                             </table>

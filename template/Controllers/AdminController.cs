@@ -53,9 +53,16 @@ namespace template.Controllers
 
         [HttpGet]
         public IActionResult AddBooks(AddBook ab,int a=0) {
-          
+           
+            AddCategory addCategory = new AddCategory();
+            DataSet categoryData = addCategory.selectNewCategory();
+            ViewBag.CategoryData = categoryData;
+            AddAuthor addAuthor = new AddAuthor();
+            DataSet authorData = addAuthor.selectNewAuthor();
+            ViewBag.AuthorData = authorData;
+            
             return View();
-}
+        }
 
         //-------------------------------------------addbooks post
         
@@ -111,34 +118,47 @@ namespace template.Controllers
         //---------------------------------------------- update books get
 
         [HttpGet]
-        public IActionResult UpdateBookData() {
-            return View();
+        public IActionResult UpdateBookData(int id)
+        {
+            ViewBooks vb = new ViewBooks(); // Create an instance of ViewBooks
+            DataSet bookData = vb.selectUpdateBook(id); // Retrieve book data using the id
+            AddCategory addCategory = new AddCategory();
+            DataSet categoryData = addCategory.selectNewCategory();
+            ViewBag.CategoryData = categoryData;
+            AddAuthor addAuthor = new AddAuthor();
+            DataSet authorData = addAuthor.selectNewAuthor();
+            ViewBag.AuthorData = authorData;
+            return View(bookData); // Pass the book data to the view
         }
-
         //------------------------------------------------update books post
 
         [HttpPost]
-        public async Task<IActionResult> UpdateBookData(ViewBooks vb, IFormFile formFile,int a=0)
-        {
-            var image = ContentDispositionHeaderValue.Parse(formFile.ContentDisposition).FileName.Trim();
-            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "NewBooks", formFile.FileName);
+		public async Task<IActionResult> UpdateBookData(ViewBooks vb, IFormFile formFile, int a = 0)
+		{
+			// Check if an image file was uploaded
+			if (formFile != null)
+			{
+				var image = ContentDispositionHeaderValue.Parse(formFile.ContentDisposition).FileName.Trim();
+				var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "NewBooks", formFile.FileName);
 
-            using (System.IO.Stream stream = new FileStream(path, FileMode.Create))
-            {
-                await formFile.CopyToAsync(stream);
-            }
-            string serializableString = image.ToString();
-            TempData["image_name"] = serializableString;
+				using (System.IO.Stream stream = new FileStream(path, FileMode.Create))
+				{
+					await formFile.CopyToAsync(stream);
+				}
 
-            //TempData["image_name"] = image;
-            vb.BookImage = image.ToString();
-            vb.updateBook(vb.id,vb.BookName, vb.BookCategory, vb.BookPrice, vb.BookDescription, vb.BookAuthor, vb.BookImage);
-            return RedirectToAction("UpdateBookData");
-        }
+				vb.BookImage = image.ToString();
+			}
 
-        //------------------------------------------------- category get
+			// Update book data using vb object
+			vb.updateBook(vb.id, vb.BookName, vb.BookCategory, vb.BookPrice, vb.BookDescription, vb.BookAuthor, vb.BookImage);
 
-        [HttpGet]
+			return RedirectToAction("UpdateBookData");
+		}
+
+
+		//------------------------------------------------- category get
+
+		[HttpGet]
         public IActionResult ViewCategory(AddCategory ac,int a = 0)
         {
             DataSet ds = ac.selectNewCategory();

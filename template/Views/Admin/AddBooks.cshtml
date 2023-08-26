@@ -1,4 +1,5 @@
-﻿
+﻿@model System.Data.DataSet
+@using System.Data;
 @{
     ViewData["Title"] = "AddBooks";
     Layout = "~/Views/Admin/_adminLayout.cshtml";
@@ -23,33 +24,38 @@
                             <div class="form-group">
                                 <label>Book Category:</label>
                                 <select class="form-control" id="exampleFormControlSelect1" name="BookCategory">
-                                    <option selected="" disabled="">Book Category</option>
-                                    <option>General Books</option>
-                                    <option>History Books</option>
-                                    <option>Horror Story</option>
-                                    <option>Arts Books</option>
-                                    <option>Film & Photography</option>
-                                    <option>Business & Economics</option>
-                                    <option>Comics & Mangas</option>
-                                    <option>Computers & Internet</option>
-                                    <option> Sports</option>
-                                    <option> Travel & Tourism</option>
+                                    <option selected="" disabled="" value="">Book Category</option>
+
+                                    @{
+                                        var categories = new HashSet<string>();
+                                        foreach (DataRow row in ViewBag.CategoryData.Tables[0].Rows)
+                                        {
+                                            var category = row["category"].ToString();
+                                            if (!categories.Contains(category))
+                                            {
+                                                categories.Add(category);
+                                                <option value="@category">@category</option>
+                                            }
+                                        }
+                                    }
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label>Book Author:</label>
                                 <select class="form-control" id="exampleFormControlSelect2" name="BookAuthor">
-                                    <option selected="" disabled="">Book Author</option>
-                                    <option>Jhone Steben</option>
-                                    <option>John Klok</option>
-                                    <option>Ichae Semos</option>
-                                    <option>Jules Boutin</option>
-                                    <option>Kusti Franti</option>
-                                    <option>David King</option>
-                                    <option>Henry Jurk</option>
-                                    <option>Attilio Marzi</option>
-                                    <option>Argele Intili</option>
-                                    <option>Attilio Marzi</option>
+                                    <option selected="" disabled="" value="">Book Author</option>
+                                    @{
+                                        var Author = new HashSet<string>();
+                                        foreach (DataRow row in ViewBag.AuthorData.Tables[0].Rows)
+                                        {
+                                            var author = row["AuthorName"].ToString();
+                                            if (!Author.Contains(author))
+                                            {
+                                                Author.Add(author);
+                                                <option value="@author">@author</option>
+                                            }
+                                        }
+                                    }
                                 </select>
                             </div>
                             <div class="form-group">

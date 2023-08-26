@@ -1,4 +1,6 @@
-﻿
+﻿@model System.Data.DataSet
+@using System.Data;
+
 @{
     ViewData["Title"] = "UpdateBookData";
     Layout = "~/Views/Admin/_adminLayout.cshtml";
@@ -18,55 +20,59 @@
                         <form method="post" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label>Book Name:</label>
-                                <input type="text" class="form-control" name="BookName">
+                                <input type="text" class="form-control" name="BookName" value="@Model.Tables[0].Rows[0]["BookName"]">
                             </div>
                             <div class="form-group">
                                 <label>Book Category:</label>
-                                <select class="form-control" id="exampleFormControlSelect1" name="BookCategory">
-                                    <option selected="" disabled="">Book Category</option>
-                                    <option>General Books</option>
-                                    <option>History Books</option>
-                                    <option>Horror Story</option>
-                                    <option>Arts Books</option>
-                                    <option>Film & Photography</option>
-                                    <option>Business & Economics</option>
-                                    <option>Comics & Mangas</option>
-                                    <option>Computers & Internet</option>
-                                    <option> Sports</option>
-                                    <option> Travel & Tourism</option>
+                                <select class="form-control" id="exampleFormControlSelect1" name="BookCategory" value="@Model.Tables[0].Rows[0]["BookCategory"]">
+                                    <option selected="" disabled="" value="@Model.Tables[0].Rows[0]["BookCategory"]">@Model.Tables[0].Rows[0]["BookCategory"]</option>
+                                    @{
+                                        var categories = new HashSet<string>();
+                                        foreach (DataRow row in ViewBag.CategoryData.Tables[0].Rows)
+                                        {
+                                            var category = row["category"].ToString();
+                                            if (!categories.Contains(category))
+                                            {
+                                                categories.Add(category);
+                                                <option value="@category">@category</option>
+                                            }
+                                        }
+                                    }
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label>Book Author:</label>
-                                <select class="form-control" id="exampleFormControlSelect2" name="BookAuthor">
-                                    <option selected="" disabled="">Book Author</option>
-                                    <option>Jhone Steben</option>
-                                    <option>John Klok</option>
-                                    <option>Ichae Semos</option>
-                                    <option>Jules Boutin</option>
-                                    <option>Kusti Franti</option>
-                                    <option>David King</option>
-                                    <option>Henry Jurk</option>
-                                    <option>Attilio Marzi</option>
-                                    <option>Argele Intili</option>
-                                    <option>Attilio Marzi</option>
+                                <select class="form-control" id="exampleFormControlSelect2" name="BookAuthor" value="@Model.Tables[0].Rows[0]["BookAuthor"]">
+                                    <option selected="" disabled="" value="@Model.Tables[0].Rows[0]["BookAuthor"]">@Model.Tables[0].Rows[0]["BookAuthor"]</option>
+                                    @{
+                                        var Author = new HashSet<string>();
+                                        foreach (DataRow row in ViewBag.AuthorData.Tables[0].Rows)
+                                        {
+                                            var author = row["AuthorName"].ToString();
+                                            if (!Author.Contains(author))
+                                            {
+                                                Author.Add(author);
+                                                <option value="@author">@author</option>
+                                            }
+                                        }
+                                    }
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label>Book Image:</label>
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" name="formfile">
+                                    <input type="file" class="custom-file-input" name="formfile" value="@Model.Tables[0].Rows[0]["BookImage"]">
                                     <label class="custom-file-label">Choose file</label>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label>Book Price:</label>
-                                <input type="text" class="form-control" name="BookPrice">
+                                <input type="text" class="form-control" name="BookPrice" value="@Model.Tables[0].Rows[0]["BookPrice"]">
                             </div>
                             <div class="form-group">
                                 <label>Book Description:</label>
-                                <textarea class="form-control" rows="4" name="BookDescription" maxlength="50"></textarea>
+                                <textarea class="form-control" rows="4" name="BookDescription" maxlength="50" value="@Model.Tables[0].Rows[0]["BookDescription"]"></textarea>
                             </div>
                             <input type="submit" class="btn btn-primary" value="Submit" />
                             <button type="reset" class="btn btn-danger">Reset</button>

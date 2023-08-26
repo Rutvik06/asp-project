@@ -160,23 +160,26 @@ namespace template.Controllers
 		[HttpPost]
 		public IActionResult AddToCart(int id, AddtoCart atc)
 		{
-			if (!User.Identity.IsAuthenticated)
+			if (TempData.Peek("UserLogin_id") != null)
 			{
-				// Redirect to login page or show a message
-				return RedirectToAction("Login", "Account");
+				// Replace these placeholders with actual book details
+				string bookName = "Sample Book Name";
+				string bookPrice = "100";
+				string bookQuantity = "1";
+				string bookImg = "book-image.jpg";
+
+				atc.UserId = TempData.Peek("UserLogin_id").ToString(); // Get the user ID from TempData
+				atc.Addedon = DateTime.Now;
+
+				// Call the AddtoCartData method with the corrected parameters
+				atc.AddtoCartData(atc.UserId, bookName, bookPrice, bookQuantity, bookImg, atc.Addedon);
+
+				return RedirectToAction("BooksGridView");
 			}
 
-			string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-			// Call a service or repository method to add the book to the user's cart
-			atc.UserId = userId; // Set the UserId from the authenticated user
-			atc.Addedon = DateTime.Now; // Set the current date and time
-
-			// Call the AddtoCartData method with the corrected parameters
-			atc.AddtoCartData(atc.UserId, atc.BookName, atc.BookPrice, atc.BookQuantity, atc.BookImg);
-
-			return RedirectToAction("BooksGridView");
+			return RedirectToAction("Login");
 		}
+
 
 		public IActionResult BlogDetail()
 		{

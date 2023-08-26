@@ -27,7 +27,9 @@
             </td>
         </tr>
     } *@
-
+    @{
+        var uniqueBooks = new HashSet<string>();
+    }
 </div>
 <div id="content-page" class="content-page">
     <div class="container-fluid">
@@ -60,6 +62,12 @@
                                 <tbody>
                                     @foreach (System.Data.DataRow dr in ViewBag.user_data.Rows)
                                     {
+                                        var books = dr["id"].ToString();
+
+                                        if (!uniqueBooks.Contains(books))
+                                        {
+                                            uniqueBooks.Add(books);
+
                                     <tr>
                                             @* <td>@dr["BookName"].ToString()</td> *@
                                             <td>@dr["id"]</td>
@@ -83,6 +91,7 @@
                                             </div>
                                         </td>
                                     </tr>
+                                  }
                                   }
 
                                 </tbody>
