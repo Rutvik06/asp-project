@@ -27,7 +27,7 @@ namespace template.Controllers
 		{
 			if (TempData.Peek("UserLogin_id") != null)
 			{
-				return RedirectToAction("Index");
+				return RedirectToAction("BooksGridView");
 			}
 			return View();
 		}
@@ -184,32 +184,24 @@ namespace template.Controllers
 					DataRow bookRow = bookData.Tables[0].Rows[0];
 					string bookName = bookRow["BookName"].ToString();
 					string bookPrice = bookRow["BookPrice"].ToString();
-
-					string userId = TempData.Peek("UserLogin_id").ToString();
-					DateTime addedOn = DateTime.Now;
-
-					// Assuming you want to add a quantity of 1 and an empty image URL
 					string bookQuantity = "1";
 					string bookImg = bookRow["BookImage"].ToString();
-
-					// Create an instance of AddtoCart
 					AddtoCart atc = new AddtoCart();
-					// Call the AddtoCartData method with the retrieved book details
-					atc.AddtoCartData(userId, bookName, bookPrice, bookQuantity, bookImg, addedOn);
+					atc.AddtoCartData(bookName, bookPrice, bookQuantity, bookImg);
 
 					return RedirectToAction("BooksGridView");
-					//bool success = true; // Replace with your actual logic
-
-					//return Json(new { success });
+					
 				}
 				else
 				{
-					// Handle case where book details couldn't be retrieved
-					return RedirectToAction("BooksGridView"); // or return an error view
+					
+					return RedirectToAction("BooksGridView"); 
 				}
 			}
-
-			return RedirectToAction("Login");
+			else
+			{
+				return RedirectToAction("Login");
+			}
 		}
 
 
