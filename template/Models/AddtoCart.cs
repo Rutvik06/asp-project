@@ -45,25 +45,45 @@ namespace template.Models
 
 			return ds;
 		}
-		public DataSet selectWithUserId(int UserId)
+		public DataSet selectWithUserId()
 		{
-			SqlCommand cmd = new SqlCommand("select * from[dbo].[Add_To_Cart] where UserId='" + UserId + "'", con);
+			SqlCommand cmd = new SqlCommand("select * from[dbo].[Add_To_Cart]", con);
+			SqlDataAdapter da = new SqlDataAdapter(cmd);
+			DataSet ds = new DataSet();
+			da.Fill(ds);
+			return ds;
+		}
+		public int deleteCart(int id)
+		{
+			SqlCommand cmd = new SqlCommand("delete from [dbo].[Add_To_Cart] where id='" + id + "'", con);
+			con.Open();
+
+			return cmd.ExecuteNonQuery();
+		}
+
+		public List<CartItem> GetCartItems()
+		{
+			List<CartItem> cartItems = new List<CartItem>();
+
+			SqlCommand cmd = new SqlCommand("SELECT * FROM [dbo].[Add_To_Cart]", con);
 			SqlDataAdapter da = new SqlDataAdapter(cmd);
 			DataSet ds = new DataSet();
 			da.Fill(ds);
 
-			return ds;
-		}
-		public int GetCartItemCount(string userId)
-		{
-			SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM [dbo].[Add_To_Cart] WHERE UserId=@UserId", con);
-			cmd.Parameters.AddWithValue("@UserId", userId);
-			con.Open();
-			int cartItemCount = (int)cmd.ExecuteScalar();
-			con.Close();
-			return cartItemCount;
-		}
+			foreach (DataRow dr in ds.Tables[0].Rows)
+			{
+				cartItems.Add(new CartItem
+				{
+					Id = Convert.ToInt32(dr["id"]),
+					BookName = dr["BookName"].ToString(),
+					BookPrice = Convert.ToDecimal(dr["BookPrice"]),
+					Quantity = Convert.ToInt32(dr["BookQuantity"])
+				});
+			}
 
+			return cartItems;
+		}
+		
 
 	}
 }

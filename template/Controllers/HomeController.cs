@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using System.Data;
 using System.Diagnostics;
 using System.Net;
@@ -54,8 +55,37 @@ namespace template.Controllers
 		{
 			return View();
 		}
+		[HttpGet]
+		public IActionResult AddWishList()
+		{
+			return View();
+		}
+		[HttpPost]
+		public IActionResult AddWishList(WishList wl, ViewUserBooks vub, int id)
+		{
+			DataSet ds = vub.selectUserSideBookSingleBook(id);
+			if (ds.Tables[0].Rows.Count > 0)
+			{
+				DataRow bookRow = ds.Tables[0].Rows[0];
+				string bookName = bookRow["BookName"].ToString();
+				string bookPrice = bookRow["BookPrice"].ToString();
+				//string bookImg = bookRow["BookImage"].ToString();
+				//string bookImg=TempData["BookImage"] as string;
+				string bookImg = ViewBag.ImageUrls[0]; // Corrected this line to get the image URL from ViewBag
+				wl.AddToWishList(bookName, bookPrice, bookImg);
 
-	//------------------------------------------------------user side single book
+				return RedirectToAction("Books_Detail");
+			}
+			else
+			{
+				return RedirectToAction("Books_Detail");
+			}
+
+			return View();
+		}
+
+
+		//------------------------------------------------------user side single book
 		[HttpGet]
 		public IActionResult Books_Detail(ViewUserBooks vub, int id, int a = 0)
 		{
@@ -77,21 +107,46 @@ namespace template.Controllers
 		}
 		//------------------------------------------------- cart item view
 		[HttpGet]
-		public IActionResult Shop_Cart(AddtoCart atc,int UserId)
+		public IActionResult Shop_Cart(AddtoCart atc)
 		{
-			DataSet ds = atc.selectWithUserId(UserId);
-			ViewBag.Cart_Data = ds.Tables[0];
-			List<string> imageUrls = new List<string>();
-			foreach (DataRow dr in ds.Tables[0].Rows)
+			if (TempData.Peek("UserLogin_id") != null)
 			{
-				imageUrls.Add(Url.Content("~/NewBooks/" + dr["BookImg"].ToString()));
+				DataSet ds = atc.selectWithUserId();
+				ViewBag.Cart_Data = ds.Tables[0];
+				List<string> imageUrls = new List<string>();
+				foreach (DataRow dr in ds.Tables[0].Rows)
+				{
+					imageUrls.Add(Url.Content("~/NewBooks/" + dr["BookImg"].ToString()));
+				}
+
+				ViewBag.ImageUrls = imageUrls;
+				decimal orderSubtotal = 0; // Initialize order subtotal
+				foreach (DataRow dr in ds.Tables[0].Rows)
+				{
+					// Calculate the subtotal for each item and add it to the order subtotal
+					decimal itemSubtotal = Convert.ToDecimal(dr["BookPrice"]) * Convert.ToInt32(dr["BookQuantity"]);
+					orderSubtotal += itemSubtotal;
+				}
+
+				// Calculate shipping charge and total
+				decimal shippingCharge = 50; // You can calculate the shipping charge as needed
+				decimal overallTotal = orderSubtotal + shippingCharge;
+
+				ViewBag.OrderSubtotal = orderSubtotal;
+				ViewBag.ShippingCharge = shippingCharge;
+				ViewBag.OverallTotal = overallTotal;
 			}
-
-			ViewBag.ImageUrls = imageUrls;
-
+			else
+			{
+				return RedirectToAction("Login");
+			}
 			return View();
 		}
-
+		public IActionResult deleteCartData(AddtoCart atc,int id)
+		{
+			atc.deleteCart(id);
+			return RedirectToAction("Shop_Cart");
+		}
 		//----------------------------------------------add new acccount in checkout and userlist
 		[HttpPost]
 		public IActionResult Shop_Checkout(UserAccount ua)
@@ -104,7 +159,33 @@ namespace template.Controllers
 		{
 			return View();
 		}
-		public IActionResult My_Profile()
+		//-------------------------------------------------my profile post
+		[HttpPost]
+		public IActionResult My_Profile(Add_Profile ap)
+		{
+			string userid = ap.userId;
+			userid = '1'.ToString();
+			ap.AddNewProfile(ap.name, ap.profession, ap.language, ap.age, ap.contact, ap.email, ap.country, ap.pincode, ap.address, ap.city, userid);
+			return RedirectToAction("My_Profile");
+		}
+		//--------------------------------------------------my profile get
+		[HttpGet]
+		public IActionResult My_Profile(int a = 0)
+		{
+			return View();
+		}
+		//----------------------------------------------------update profile post
+		[HttpPost]
+		public IActionResult Update_Profile(Add_Profile ap)
+		{
+			string userid = ap.userId;
+			userid = '1'.ToString();
+			ap.AddNewProfile(ap.name, ap.profession, ap.language, ap.age, ap.contact, ap.email, ap.country, ap.pincode, ap.address, ap.city, userid);
+			return RedirectToAction("My_Profile");
+		}
+		//--------------------------------------------------update profile get 
+		[HttpGet]
+		public IActionResult Update_Profile(int a = 0)
 		{
 			return View();
 		}
@@ -203,9 +284,46 @@ namespace template.Controllers
 				return RedirectToAction("Login");
 			}
 		}
+		[HttpGet]
+		public IActionResult OrderPage(AddtoCart atc)
+		{
+			DataSet ds = atc.selectWithUserId();
+			ViewBag.OrderData = ds.Tables[0];
+			List<string> imageUrls = new List<string>();
+			foreach (DataRow dr in ds.Tables[0].Rows)
+			{
+				imageUrls.Add(Url.Content("~/NewBooks/" + dr["BookImg"].ToString()));
+			}
 
+			ViewBag.ImageUrls = imageUrls;
+			decimal orderSubtotal = 0; // Initialize order subtotal
+			foreach (DataRow dr in ds.Tables[0].Rows)
+			{
+				// Calculate the subtotal for each item and add it to the order subtotal
+				decimal itemSubtotal = Convert.ToDecimal(dr["BookPrice"]) * Convert.ToInt32(dr["BookQuantity"]);
+				orderSubtotal += itemSubtotal;
+			}
 
+			// Calculate shipping charge and total
+			decimal shippingCharge = 50; // You can calculate the shipping charge as needed
+			decimal overallTotal = orderSubtotal + shippingCharge;
 
+			ViewBag.OrderSubtotal = orderSubtotal;
+			ViewBag.ShippingCharge = shippingCharge;
+			ViewBag.OverallTotal = overallTotal;
+			return View();
+		}
+		[HttpPost]
+		public IActionResult OrderPage(CardDetails cd)
+		{
+			cd.AddCardDetails(cd.CardName, cd.CardNum, cd.CardVerifyNum);
+			return RedirectToAction("OrderPage");
+		}
+		[HttpGet]
+		public IActionResult ViewOrders()
+		{
+			return View();
+		}
 		public IActionResult BlogDetail()
 		{
 			return View();

@@ -25,13 +25,13 @@
 	<section class="content-inner-1">
 		<!-- Product -->
 		<div class="container">
-			<form class="shop-form" method="post">
+			<form class="shop-form" method="post" action="OrderPage">
 				<div class="row">
 					<div class="col-lg-6 col-md-6">
 						<div class="widget">
 							<h4 class="widget-title">Billing & Shipping Address</h4>
 							<div class="form-group">
-								<select class="default-select" name="UserCountry">
+								<select class="default-select" name="UserCountry" required>
 									<option value="Åland Islands">Åland Islands</option>
 									<option value="Afghanistan">Afghanistan</option>
 									<option value="Albania">Albania</option>
@@ -49,32 +49,32 @@
 							</div>
 							<div class="row">
 								<div class="form-group col-md-6">
-									<input type="text" class="form-control" placeholder="First Name" name="UserFName">
+									<input type="text" class="form-control" required placeholder="First Name" name="UserFName">
 								</div>
 								<div class="form-group col-md-6">
-									<input type="text" class="form-control" placeholder="Last Name" name="UserLName">
+									<input type="text" class="form-control" required placeholder="Last Name" name="UserLName">
 								</div>
 							</div>
 							
 							<div class="form-group">
-								<input type="text" class="form-control" placeholder="Address" name="UserAddress">
+								<input type="text" class="form-control" required placeholder="Address" name="UserAddress">
 							</div>
 							<div class="row">
 								
 								<div class="form-group col-md-6">
-									<input type="text" class="form-control" placeholder="Town / City" name="UserCity">
+									<input type="text" class="form-control" required placeholder="Town / City" name="UserCity">
 								</div>
 								<div class="form-group col-md-6">
-									<input type="text" class="form-control" placeholder="Postcode / Zip" name="UserZip">
+									<input type="text" class="form-control" required placeholder="Postcode / Zip" name="UserZip">
 								</div>
 							</div>
 							
 							<div class="row">
 								<div class="form-group col-md-6">
-									<input type="email" class="form-control" placeholder="Email" name="UserEmail">
+									<input type="email" class="form-control" required placeholder="Email" name="UserEmail">
 								</div>
 								<div class="form-group col-md-6">
-									<input type="text" class="form-control" placeholder="Phone" name="UserPhone">
+									<input type="text" class="form-control" required placeholder="Phone" name="UserPhone">
 								</div>
 							</div>
 							<button class="btn btn-primary btnhover mb-3" type="submit" data-bs-toggle="collapse" data-bs-target="#create-an-account">Create an account <i class="fa fa-arrow-circle-o-down"></i></button>
@@ -149,96 +149,7 @@
 					</div>
 				</div>
 			</form>
-			<div class="dz-divider bg-gray-dark text-gray-dark icon-center  my-5"><i class="fa fa-circle bg-white text-gray-dark"></i></div>
-			<div class="row">
-				<div class="col-lg-6">
-					<div class="widget">
-						<h4 class="widget-title">Your Order</h4>
-						<table class="table-bordered check-tbl">
-							<thead class="text-center">
-								<tr>
-									<th>IMAGE</th>
-									<th>PRODUCT NAME</th>
-									<th>TOTAL</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td class="product-item-img"><img src="images/books/grid/book3.jpg" alt=""></td>
-									<td class="product-item-name">Prduct Item 5</td>
-									<td class="product-price">$28.00</td>
-								</tr>
-								<tr>
-									<td class="product-item-img"><img src="images/books/grid/book2.jpg" alt=""></td>
-									<td class="product-item-name">Prduct Item 4</td>
-									<td class="product-price">$36.00</td>
-								</tr>
-								<tr>
-									<td class="product-item-img"><img src="images/books/grid/book4.jpg" alt=""></td>
-									<td class="product-item-name">Prduct Item 3</td>
-									<td class="product-price">$28.00</td>
-								</tr>
-								<tr>
-									<td class="product-item-img"><img src="images/books/grid/book5.jpg" alt=""></td>
-									<td class="product-item-name">Prduct Item 2</td>
-									<td class="product-price">$36.00</td>
-								</tr>
-								<tr>
-									<td class="product-item-img"><img src="images/books/grid/book1.jpg" alt=""></td>
-									<td class="product-item-name">Prduct Item 1</td>
-									<td class="product-price">$28.00</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-				<div class="col-lg-6">
-					<form class="shop-form widget">
-						<h4 class="widget-title">Order Total</h4>
-						<table class="table-bordered check-tbl mb-4">
-							<tbody>
-								<tr>
-									<td>Order Subtotal</td>
-									<td class="product-price">$125.96</td>
-								</tr>
-								<tr>
-									<td>Shipping</td>
-									<td>Free Shipping</td>
-								</tr>
-								<tr>
-									<td>Coupon</td>
-									<td class="product-price">$28.00</td>
-								</tr>
-								<tr>
-									<td>Total</td>
-									<td class="product-price-total">$506.00</td>
-								</tr>
-							</tbody>
-						</table>
-						<h4 class="widget-title">Payment Method</h4>
-						<div class="form-group">
-							<input type="text" class="form-control" placeholder="Name on Card">
-						</div>
-						<div class="form-group">
-							<select class="default-select">
-								<option value="">Credit Card Type</option>
-								<option value="">Another option</option>
-								<option value="">A option</option>
-								<option value="">Potato</option>
-							</select>
-						</div>
-						<div class="form-group">
-							<input type="text" class="form-control" placeholder="Credit Card Number">
-						</div>
-						<div class="form-group">
-							<input type="text" class="form-control" placeholder="Card Verification Number">
-						</div>
-						<div class="form-group">
-							<button class="btn btn-primary btnhover" type="button">Place Order Now </button>
-						</div>
-					</form>
-				</div>
-			</div>
+			
 		</div>
 		<!-- Product END -->
 	</section>
