@@ -18,9 +18,9 @@ namespace template.Models
 			return cmd.ExecuteNonQuery();
 		}
 
-		public DataSet selectOrders()
-		{
-			SqlCommand cmd = new SqlCommand("select ")
-		}
+		//public DataSet selectOrders()
+		//{
+		//	SqlCommand cmd = new SqlCommand("select ")
+		//}
 	}
 }
