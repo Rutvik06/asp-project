@@ -153,7 +153,7 @@ namespace template.Controllers
 		{
 			
 			ua.AddAccount(ua.UserFName,ua.UserLName,ua.UserCountry,ua.UserEmail,ua.UserPhone,ua.UserAddress,ua.UserCity,ua.UserZip);
-			return RedirectToAction("Shop_Checkout");
+			return RedirectToAction("OrderPage");
 		}
 		public IActionResult Shop_Checkout()
 		{
@@ -163,24 +163,24 @@ namespace template.Controllers
 		[HttpPost]
 		public IActionResult My_Profile(Add_Profile ap)
 		{
-			string userid = ap.userId;
-			userid = '1'.ToString();
-			ap.AddNewProfile(ap.name, ap.profession, ap.language, ap.age, ap.contact, ap.email, ap.country, ap.pincode, ap.address, ap.city, userid);
+			
+			ap.AddNewProfile(ap.name, ap.profession, ap.language, ap.age, ap.contact, ap.email, ap.country, ap.pincode, ap.address, ap.city);
 			return RedirectToAction("My_Profile");
 		}
 		//--------------------------------------------------my profile get
 		[HttpGet]
-		public IActionResult My_Profile(int a = 0)
+		public IActionResult My_Profile(Add_Profile ap,int id)
 		{
+			DataSet ds = ap.selectUpdateProfile(id);
+			//ViewBag.ProfileId = ;
 			return View();
 		}
 		//----------------------------------------------------update profile post
 		[HttpPost]
 		public IActionResult Update_Profile(Add_Profile ap)
 		{
-			string userid = ap.userId;
-			userid = '1'.ToString();
-			ap.AddNewProfile(ap.name, ap.profession, ap.language, ap.age, ap.contact, ap.email, ap.country, ap.pincode, ap.address, ap.city, userid);
+			
+			ap.AddNewProfile(ap.name, ap.profession, ap.language, ap.age, ap.contact, ap.email, ap.country, ap.pincode, ap.address, ap.city);
 			return RedirectToAction("My_Profile");
 		}
 		//--------------------------------------------------update profile get 
@@ -296,32 +296,47 @@ namespace template.Controllers
 			}
 
 			ViewBag.ImageUrls = imageUrls;
-			decimal orderSubtotal = 0; // Initialize order subtotal
-			foreach (DataRow dr in ds.Tables[0].Rows)
-			{
-				// Calculate the subtotal for each item and add it to the order subtotal
-				decimal itemSubtotal = Convert.ToDecimal(dr["BookPrice"]) * Convert.ToInt32(dr["BookQuantity"]);
-				orderSubtotal += itemSubtotal;
-			}
-
-			// Calculate shipping charge and total
-			decimal shippingCharge = 50; // You can calculate the shipping charge as needed
-			decimal overallTotal = orderSubtotal + shippingCharge;
-
-			ViewBag.OrderSubtotal = orderSubtotal;
-			ViewBag.ShippingCharge = shippingCharge;
-			ViewBag.OverallTotal = overallTotal;
 			return View();
 		}
 		[HttpPost]
 		public IActionResult OrderPage(CardDetails cd)
 		{
 			cd.AddCardDetails(cd.CardName, cd.CardNum, cd.CardVerifyNum);
-			return RedirectToAction("OrderPage");
+			return RedirectToAction("ViewOrders");
 		}
 		[HttpGet]
-		public IActionResult ViewOrders()
+		public IActionResult OrderHistory(AddtoCart atc)
 		{
+			if (TempData.Peek("UserLogin_id") != null)
+			{
+				DataSet ds = atc.selectWithUserId();
+				ViewBag.OrderData = ds.Tables[0];
+				List<string> imageUrls = new List<string>();
+				foreach (DataRow dr in ds.Tables[0].Rows)
+				{
+					imageUrls.Add(Url.Content("~/NewBooks/" + dr["BookImg"].ToString()));
+				}
+
+				ViewBag.ImageUrls = imageUrls;
+				return View();
+			}
+			else
+			{
+				return RedirectToAction("Login");
+			}
+		}
+		[HttpGet]
+		public IActionResult ViewOrders(AddtoCart atc)
+		{
+			DataSet ds = atc.selectWithUserId();
+			ViewBag.OrderData = ds.Tables[0];
+			List<string> imageUrls = new List<string>();
+			foreach (DataRow dr in ds.Tables[0].Rows)
+			{
+				imageUrls.Add(Url.Content("~/NewBooks/" + dr["BookImg"].ToString()));
+			}
+
+			ViewBag.ImageUrls = imageUrls;
 			return View();
 		}
 		public IActionResult BlogDetail()

@@ -19,6 +19,9 @@
 
 	<link rel="stylesheet" type="text/css" href="~/vendor/animate/animate.css">
 	<link rel="stylesheet" type="text/css" href="~/vendor/bootstrap-select/dist/css/bootstrap-select.min.css">
+	<!-- Include Toastr CSS and JavaScript from a CDN -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
+
 	<!-- GOOGLE FONTS-->
 	<link rel="preconnect" href="https://fonts.googleapis.com/">
 	<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
@@ -188,6 +191,8 @@
 									<li><a asp-action="Login" asp-controller="Home">Login</a></li>
 									<li><a asp-action="Register" asp-controller="Home">Registration</a></li>
 									<li><a asp-action="Logout" asp-controller="Home">Logout</a></li>
+									<li><a asp-action="OrderHistory" asp-controller="Home">Order History</a></li>
+
 
 								</ul>
 							</li>
@@ -340,6 +345,8 @@
 	<!-- Footer End -->
 	<!-- JAVASCRIPT FILES ========================================= -->
 	<script src="~/js/jquery.min.js"></script><!-- JQUERY MIN JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
 	<script src="~/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script><!-- BOOTSTRAP MIN JS -->
 	<script src="~/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script><!-- BOOTSTRAP SELECT MIN JS -->
 	<script src="~/vendor/counter/waypoints-min.js"></script><!-- WAYPOINTS JS -->
