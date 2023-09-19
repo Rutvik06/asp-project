@@ -15,6 +15,7 @@
 						<div class="dz-box">
 							<div class="dz-media">
 							<img src="@ViewBag.ImageUrls[0]" alt="Image" />
+							<p>@ViewBag.ImageUrls[0]</p>
 
 							</div>
 							<div class="dz-content">
@@ -68,10 +69,20 @@
 											</div>
 											<a asp-action="Shop_Cart" asp-controller="Home" class="btn btn-primary btnhover btnhover2"><i class="flaticon-shopping-cart-1"></i> <span>Add to cart</span></a>
 											<div class="bookmark-btn style-1 d-none d-sm-block">
-												<input class="form-check-input" type="checkbox" id="flexCheckDefault1">
-												<label class="form-check-label" for="flexCheckDefault1">
-													<i class="flaticon-heart"></i>
-												</label>
+											@* <form method="post" asp-controller="Home" asp-action="AddWishList" class="add-to-cart-form">
+												<input type="hidden" name="id" value="@ViewBag.BookData["id"]" />
+												<input type="hidden" name="bookImg" value="@ViewBag.BookData["BookImage"]" /> <!-- Store the image URL here -->
+												<button type="submit" class="btn btn-secondary box-btn btnhover btnhover2 add-to-cart-button">
+													<i class="flaticon-heart m-r10"></i> Add to Cart
+												</button>
+											</form>
+											
+											*@
+											<form method="post">
+											<button type="submit" asp-controller="Home" asp-action="AddWishList" value="@ViewBag.BookData["id"]" class="btn btn-secondary box-btn btnhover btnhover2 add-to-cart-button">
+												<i class="flaticon-heart m-r10"></i> 
+											</button>
+											</form>
 											</div>
 										</div>
 									</div>
