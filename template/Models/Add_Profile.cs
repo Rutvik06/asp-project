@@ -16,18 +16,19 @@ namespace template.Models
 		public string pincode { get; set; }
 		public string address { get; set; }
 		public string city { get; set; }
+		public int userId { get; set; }
 
 		SqlConnection con = new SqlConnection("Data Source=.\\SQLEXPRESS;database=project;User Id=sa;pwd=12345");
-		public int AddNewProfile(string name, string profession, string language, int age, string contact, string email, string country, string pincode, string address, string city)
+		public int AddNewProfile(string name, string profession, string language, int age, string contact, string email, string country, string pincode, string address, string city,string userId)
 		{
-			SqlCommand cmd = new SqlCommand("INSERT INTO [dbo].[Add_Profile] (name, profession, language, age, contact, email,country,pincode,address,city) " +
-											"VALUES ('" + name + "', '" + profession + "', '" + language + "', '" + age + "', '" + contact + "', '" + email + "','" + country + "','" + pincode + "','" + address + "','" + city + "')", con);
+			SqlCommand cmd = new SqlCommand("INSERT INTO [dbo].[Add_Profile] (name, profession, language, age, contact, email,country,pincode,address,city,userId) " +
+											"VALUES ('" + name + "', '" + profession + "', '" + language + "', '" + age + "', '" + contact + "', '" + email + "','" + country + "','" + pincode + "','" + address + "','" + city + "','"+userId+"')", con);
 			con.Open();
 			return cmd.ExecuteNonQuery();
 		}
-		public DataSet selectUpdateProfile(int id)
+		public DataSet selectUpdateProfile(int userId)
 		{
-			SqlCommand cmd = new SqlCommand("select * from[dbo].[Add_Profile] where id='" + id + "'", con);
+			SqlCommand cmd = new SqlCommand("select * from[dbo].[Add_Profile] where userId='" + userId + "'", con);
 			SqlDataAdapter da = new SqlDataAdapter(cmd);
 			DataSet ds = new DataSet();
 			da.Fill(ds);

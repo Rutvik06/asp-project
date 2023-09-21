@@ -305,6 +305,13 @@ namespace template.Controllers
             return RedirectToAction("UserList");
             // GET
         }
+
+        //--------------------------------------------------get orders
+        public IActionResult ViewOrders(Order od)
+        {
+
+            return View();
+        }
         //----------------------------------------------logout
         public IActionResult Logout()
         {

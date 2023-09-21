@@ -574,11 +574,17 @@
 										<img src="@ViewBag.ImageUrls[ViewBag.user_data.Rows.IndexOf(dr)]" alt="Image" />
 								</div>
 								<div class="bookmark-btn style-2">
-									<input class="form-check-input" type="checkbox" id="flexCheckDefault1">
+									@* <input class="form-check-input" type="checkbox" id="flexCheckDefault1">
 								
 									<label class="form-check-label" for="flexCheckDefault1">
 										<i class="flaticon-heart"></i>
-									</label>
+									</label> *@
+										<form method="post" asp-controller="Home" asp-action="AddWishList">
+											<input type="hidden" name="id" value="@dr["id"]" />
+											<button type="submit" class="btn btn-secondary box-btn btnhover btnhover2 add-to-cart-button">
+												<i class="flaticon-heart m-r10"></i>
+											</button>
+										</form>
 										
 								</div>
 								<div class="dz-content">

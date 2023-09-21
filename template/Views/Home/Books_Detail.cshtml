@@ -78,12 +78,15 @@
 											</form>
 											
 											*@
-											<form method="post">
-											<button type="submit" asp-controller="Home" asp-action="AddWishList" value="@ViewBag.BookData["id"]" class="btn btn-secondary box-btn btnhover btnhover2 add-to-cart-button">
-												<i class="flaticon-heart m-r10"></i> 
-											</button>
+											@foreach (System.Data.DataRow dr in ViewBag.user_data.Rows)
+											{
+											<form method="post" asp-controller="Home" asp-action="AddWishList">
+												<input type="hidden" name="id" value="@dr["id"]" />
+											<button type="submit"  class="btn btn-secondary box-btn btnhover btnhover2 add-to-cart-button">
+													<i class="flaticon-heart m-r10"></i>
+												</button>
 											</form>
-											</div>
+											}</div>
 										</div>
 									</div>
 								</div>
