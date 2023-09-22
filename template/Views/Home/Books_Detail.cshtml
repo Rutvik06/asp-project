@@ -15,8 +15,7 @@
 						<div class="dz-box">
 							<div class="dz-media">
 							<img src="@ViewBag.ImageUrls[0]" alt="Image" />
-							<p>@ViewBag.ImageUrls[0]</p>
-
+							
 							</div>
 							<div class="dz-content">
 								<div class="dz-header">
@@ -47,7 +46,7 @@
 										<ul class="book-info">
 											<li>
 												<div class="writer-info">
-													<img src="images/profile2.jpg" alt="book">
+													
 													<div>
 													<span>Writen by</span>@ViewBag.BookData["BookAuthor"].ToString()
 													</div>
@@ -69,24 +68,10 @@
 											</div>
 											<a asp-action="Shop_Cart" asp-controller="Home" class="btn btn-primary btnhover btnhover2"><i class="flaticon-shopping-cart-1"></i> <span>Add to cart</span></a>
 											<div class="bookmark-btn style-1 d-none d-sm-block">
-											@* <form method="post" asp-controller="Home" asp-action="AddWishList" class="add-to-cart-form">
-												<input type="hidden" name="id" value="@ViewBag.BookData["id"]" />
-												<input type="hidden" name="bookImg" value="@ViewBag.BookData["BookImage"]" /> <!-- Store the image URL here -->
-												<button type="submit" class="btn btn-secondary box-btn btnhover btnhover2 add-to-cart-button">
-													<i class="flaticon-heart m-r10"></i> Add to Cart
-												</button>
-											</form>
 											
-											*@
-											@foreach (System.Data.DataRow dr in ViewBag.user_data.Rows)
-											{
-											<form method="post" asp-controller="Home" asp-action="AddWishList">
-												<input type="hidden" name="id" value="@dr["id"]" />
-											<button type="submit"  class="btn btn-secondary box-btn btnhover btnhover2 add-to-cart-button">
-													<i class="flaticon-heart m-r10"></i>
-												</button>
-											</form>
-											}</div>
+											
+											
+											
 										</div>
 									</div>
 								</div>
