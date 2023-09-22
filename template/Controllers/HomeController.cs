@@ -51,8 +51,21 @@ namespace template.Controllers
 		{
 			return View();
 		}
-		public IActionResult WishList()
+		[HttpGet]
+		public IActionResult WishList(WishList wl)
 		{
+			DataSet ds = wl.SelectData();
+			ViewBag.user_data = ds.Tables[0];
+
+			//ViewBag.image = TempData["image_name"];
+			//ViewBag.ImageUrl = Url.Content("~/image/" + TempData["image_name"]);
+			List<string> imageUrls = new List<string>();
+			foreach (DataRow dr in ds.Tables[0].Rows)
+			{
+				imageUrls.Add(Url.Content("~/NewBooks/" + dr["BookImg"].ToString()));
+			}
+
+			ViewBag.ImageUrls = imageUrls;
 			return View();
 		}
 		[HttpGet]
@@ -74,11 +87,11 @@ namespace template.Controllers
 				//string bookImg = ViewBag.ImageUrls[0]; // Corrected this line to get the image URL from ViewBag
 				wl.AddToWishList(bookName, bookPrice, bookImg);
 
-				return RedirectToAction("Books_Detail");
+				return RedirectToAction("BooksGridView");
 			}
 			else
 			{
-				return RedirectToAction("Books_Detail");
+				return RedirectToAction("BooksGridView");
 			}
 
 			return View();

@@ -1,4 +1,5 @@
-﻿using System.Data.SqlClient;
+﻿using System.Data;
+using System.Data.SqlClient;
 
 namespace template.Models
 {
@@ -15,6 +16,15 @@ namespace template.Models
 											"VALUES ('" + BookName + "',  '" + BookPrice + "', '" + BookImg + "')", con);
 			con.Open();
 			return cmd.ExecuteNonQuery();
+		}
+		public DataSet SelectData()
+		{
+			SqlCommand cmd = new SqlCommand("select * from[dbo].[WishList]",con);
+			SqlDataAdapter da = new SqlDataAdapter(cmd);
+			DataSet ds = new DataSet();
+			da.Fill(ds);
+
+			return ds;
 		}
 	}
 }
