@@ -40,19 +40,10 @@
 				</tbody>
 			</table>
 		</div>
-							<form method="post">
-				@foreach (System.Data.DataRow dr in ViewBag.OrderData.Rows)
-				{
-					<input type="hidden" name="BookName[]" value="@dr["BookName"].ToString()">
-					<input type="hidden" name="BookPrice[]" value="@dr["BookPrice"].ToString()">
-					<input type="hidden" name="BookQuantity[]" value="@dr["BookQuantity"].ToString()">
-					<input type="hidden" name="BookImg[]" value="@ViewBag.ImageUrls[ViewBag.OrderData.Rows.IndexOf(dr)]">
-				}
-				<button type="submit" class="btn btn-primary btnhover">Place Order</button>
-							</form>
+							
 	</div>
 	<div class="col-lg-6">
-		@* <form class="shop-form widget" method="post">
+		<form class="shop-form widget" method="post">
 			<h4 class="widget-title">Order Total</h4>
 			<table class="table-bordered check-tbl mb-4">
 				<tbody>
@@ -85,7 +76,7 @@
 			<div class="form-group">
 				<button class="btn btn-primary btnhover" type="submit">Place Order Now </button>
 			</div>
-		</form> *@
+		</form>
 	</div>
 </div>
 </div>
