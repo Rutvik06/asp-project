@@ -30,49 +30,49 @@
 								</div>
 								<ul class="account-list">
 									<li>
-										<a href="my-profile.html" class="active">
+										<a asp-action="My_Profile" asp-controller="Home" class="active">
 											<i class="far fa-user" aria-hidden="true"></i>
 											<span>Profile</span>
 										</a>
 									</li>
 									<li>
-										<a href="shop-cart.html">
+										<a asp-action="Shop_Cart" asp-controller="Home">
 											<i class="flaticon-shopping-cart-1"></i>
 											<span>My Cart</span>
 										</a>
 									</li>
 									<li>
-										<a href="wishlist.html">
+										<a asp-action="WishList" asp-controller="Home">
 											<i class="far fa-heart" aria-hidden="true"></i>
 											<span>Wishlist</span>
 										</a>
 									</li>
 									<li>
-										<a href="books-grid-view.html">
+										<a asp-action="BooksGridView" asp-controller="Home">
 											<i class="fa fa-briefcase" aria-hidden="true"></i>
 											<span>Shop</span>
 										</a>
 									</li>
 									<li>
-										<a href="services.html">
+										<a asp-action="Services" asp-controller="Home">
 											<i class="far fa-bell" aria-hidden="true"></i>
 											<span>Services</span>
 										</a>
 									</li>
 									<li>
-										<a href="help-desk.html">
+										<a asp-action="Help_Desk" asp-controller="Home">
 											<i class="far fa-id-card" aria-hidden="true"></i>
 											<span>Help Desk</span>
 										</a>
 									</li>
 									<li>
-										<a href="privacy-policy.html">
+										<a asp-action="Privacy" asp-controller="Home">
 											<i class="fa fa-key" aria-hidden="true"></i>
 											<span>Privacy Policy</span>
 										</a>
 									</li>
 									<li>
-										<a href="shop-login.html">
+										<a asp-action="Logout" asp-controller="Home">
 											<i class="fas fa-sign-out-alt" aria-hidden="true"></i>
 											<span>Log Out</span>
 										</a>
@@ -162,7 +162,6 @@
 									</div>
 								</div>
 								<button class="btn btn-primary btnhover" type="submit">Save Setting</button>
-								<button class="btn btn-primary btnhover" asp-action="UpdateProfile" asp-controller="Home" asp-route-id="@ViewBag.ProfileId">Update</button>
 							</form>
 						</div>
 					</div>
