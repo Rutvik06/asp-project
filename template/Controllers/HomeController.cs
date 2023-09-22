@@ -280,7 +280,7 @@ namespace template.Controllers
 		{
 			return View();
 		}
-		public IActionResult Comming_Soon()
+		public IActionResult Coming_Soon()
 		{
 			return View();
 		}
