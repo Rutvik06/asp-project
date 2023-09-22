@@ -11,6 +11,7 @@ namespace template.Models
         public int BookQuantity { get; set; }
         public string BookPrice { get; set; }
         public string BookImg { get; set;}
+		public string OrderStatus { get; set; }
 
         SqlConnection con = new SqlConnection("Data Source=.\\SQLEXPRESS;database=project;User Id=sa;pwd=12345");
 		//public int AddtoCartData(string UserId, string BookName, string BookPrice,string BookQuantity, string BookImg,DateTime AddedOn)
@@ -26,13 +27,10 @@ namespace template.Models
 		//    return cmd.ExecuteNonQuery();
 
 		//}
-		public int AddtoCartData(string userId,string BookName, string BookPrice, string BookQuantity, string BookImg)
+		public int AddtoCartData(string userId,string BookName, string BookPrice, string BookQuantity, string BookImg,string OrderStatus)
 		{
-			SqlCommand cmd = new SqlCommand("INSERT INTO [dbo].[Add_To_Cart] (userId,BookName, BookPrice, BookImg, BookQuantity) " +
-											"VALUES ('"+ userId + "','"+BookName+"',  '"+BookPrice+"', '"+BookImg+"', '"+BookQuantity+"')", con);
-
-			
-
+			SqlCommand cmd = new SqlCommand("INSERT INTO [dbo].[Add_To_Cart] (userId,BookName, BookPrice, BookImg, BookQuantity,OrderStatus) " +
+											"VALUES ('"+ userId + "','"+BookName+"',  '"+BookPrice+"', '"+BookImg+"', '"+BookQuantity+"','"+OrderStatus+"')", con);
 			con.Open();
 			return cmd.ExecuteNonQuery();
 		}

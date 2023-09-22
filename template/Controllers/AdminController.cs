@@ -307,11 +307,41 @@ namespace template.Controllers
         }
 
         //--------------------------------------------------get orders
+        [HttpGet]
         public IActionResult ViewOrders(Order od)
         {
+            
+			DataSet ds = od.ViewAdminOrder();
+			ViewBag.user_data = ds.Tables[0];
 
-            return View();
+			//ViewBag.image = TempData["image_name"];
+			//ViewBag.ImageUrl = Url.Content("~/image/" + TempData["image_name"]);
+			List<string> imageUrls = new List<string>();
+			foreach (DataRow dr in ds.Tables[0].Rows)
+			{
+				imageUrls.Add(Url.Content("~/NewBooks/" + dr["BookImg"].ToString()));
+			}
+
+			ViewBag.ImageUrls = imageUrls;
+			return View();
         }
+
+        //----------------------------------------------Update order status get
+        [HttpGet]
+        public IActionResult UpdateStatus(Order od,int id)
+        {
+            DataSet bookdata = od.UpdateOrderId(id);
+            //ViewBag.user_data = ds.Tables[0];
+            return View(bookdata);
+        }
+        //-----------------------------------------------update order status post
+        [HttpPost]
+        public IActionResult UpdateStatus(Order od)
+        {
+            od.updateStatus(od.id, od.OrderStatus);
+            return RedirectToAction("UpdateStatus");
+        }
+        
         //----------------------------------------------logout
         public IActionResult Logout()
         {

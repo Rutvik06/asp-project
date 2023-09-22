@@ -331,7 +331,7 @@ namespace template.Controllers
 					string bookQuantity = "1";
 					string bookImg = bookRow["BookImage"].ToString();
 					string userId = TempData.Peek("UserLogin_id").ToString();
-
+					string orderstatus = "pending".ToString();
 					AddtoCart atc = new AddtoCart();
 
 					// Check if the book already exists in the cart for the user
@@ -349,7 +349,7 @@ namespace template.Controllers
 					else
 					{
 						// Book does not exist in the cart, add it
-						atc.AddtoCartData(userId, bookName, bookPrice, bookQuantity, bookImg);
+						atc.AddtoCartData(userId, bookName, bookPrice, bookQuantity, bookImg,orderstatus);
 					}
 
 					return RedirectToAction("BooksGridView");

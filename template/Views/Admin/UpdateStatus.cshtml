@@ -1,0 +1,60 @@
+﻿@model System.Data.DataSet
+@using System.Data;
+@{
+    ViewData["Title"] = "UpdateStatus";
+    Layout = "~/Views/Shared/_adminLayout.cshtml";
+}
+@*   @foreach (System.Data.DataRow dr in ViewBag.user_data.Rows)
+    {
+        <tr>
+            <td>
+                @dr["BookName"].ToString()
+                <p>@ViewBag.ImageUrls[ViewBag.user_data.Rows.IndexOf(dr)]</p>
+                <img src="@ViewBag.ImageUrls[ViewBag.user_data.Rows.IndexOf(dr)]" alt="Image" />
+            </td>
+            <td>@dr["OrderStatus"].ToString()</td>
+        </tr>
+    } *@
+<div id="content-page" class="content-page">
+    <div class="container-fluid">
+        <div class="row">
+<div class="col-sm-12 col-lg-6">
+    <div class="iq-card">
+                    <div class="iq-card-header d-flex justify-content-between">
+                        <div class="iq-header-title">
+                            <h4 class="card-title">order status</h4>
+                        </div>
+                    </div>
+<div class="iq-card-body">
+    <form method="post">
+
+                            <div class="form-group">
+                                <label>Update Order Status</label>
+                                <select class="form-control form-control-sm mb-3" name="OrderStatus">
+                                    <option selected="">Order Status</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="shipped">Shipped</option>
+                                    <option value="Delivered">Delivered</option>
+                                </select>
+                            </div>
+
+    
+    <div class="form-group">
+                                <input type="text" class="form-control" id="pwd1" placeholder="book name" name="BookName" value="@Model.Tables[0].Rows[0]["BookName"]">
+
+    </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="pwd2" placeholder="quantity" name="BookQuantity" value="@Model.Tables[0].Rows[0]["BookQuantity"]" />
+
+                            </div>
+                            <button type="submit"   class="btn btn-primary">submit</button>
+    
+    </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
