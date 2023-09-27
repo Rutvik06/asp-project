@@ -289,7 +289,7 @@ namespace template.Controllers
 				}
 				else
 				{
-					return RedirectToAction("Help_Desk");
+					return RedirectToAction("My_Profile");
 				}
 			}
 			else
@@ -326,10 +326,10 @@ namespace template.Controllers
 		{
 			return View();
 		}
-		public IActionResult Coming_Soon()
-		{
-			return View();
-		}
+		//public IActionResult Coming_Soon()
+		//{
+		//	return View();
+		//}
 		[HttpGet]
 		public IActionResult Register() {
 			return View();
