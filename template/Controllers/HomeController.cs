@@ -512,6 +512,13 @@ namespace template.Controllers
 			ViewBag.ImageUrls = imageUrls;
 			return View();
 		}
+		[HttpPost]
+		public IActionResult BlogDetail(AdminData ad)
+		{
+			ad.AddNewCommwnt(ad.author, ad.email, ad.comment);
+			return RedirectToAction("BlogDetail");
+		}
+		[HttpGet]
 		public IActionResult BlogDetail()
 		{
 			return View();
