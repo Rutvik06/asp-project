@@ -55,7 +55,7 @@
 				<h1>Cart</h1>
 				<nav aria-label="breadcrumb" class="breadcrumb-row">
 					<ul class="breadcrumb">
-						<li class="breadcrumb-item"><a href="index.html"> Home</a></li>
+						<li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home"> Home</a></li>
 						<li class="breadcrumb-item">Cart</li>
 					</ul>
 				</nav>
@@ -118,16 +118,16 @@
 							<tbody>
 								<tr>
 									<td>Order Subtotal</td>
-									<td>@string.Format("{0:C}", ViewBag.OrderSubtotal)</td>
+									<td>&#x20B9;@ViewBag.OrderSubtotal</td>
 								</tr>
 								<tr>
 									<td>Shipping</td>
-									<td>@string.Format("{0:C}", ViewBag.ShippingCharge)</td>
+									<td>&#x20B9;@ViewBag.ShippingCharge</td>
 								</tr>
 
 								<tr>
 									<td>Total</td>
-									<td>@string.Format("{0:C}", ViewBag.OverallTotal)</td>
+									<td>&#x20B9;@ViewBag.OverallTotal</td>
 								</tr>
 							</tbody>
 						</table>

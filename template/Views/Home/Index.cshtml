@@ -32,8 +32,8 @@
 											</ul>
 											<p class="text mb-0" data-swiper-parallax="-40">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal.</p>
 											<div class="price" data-swiper-parallax="-50">
-												<span class="price-num">$17.2</span>
-												<del>$15.25</del>
+												<span class="price-num">&#x20B9;17.2</span>
+												<del>&#x20B9;15.25</del>
 												<span class="badge badge-danger">15% OFF</span>
 											</div>
 											<div class="content-btn" data-swiper-parallax="-60">
@@ -76,8 +76,7 @@
 											</ul>
 											<p class="text mb-0" data-swiper-parallax="-40">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris</p>
 											<div class="price" data-swiper-parallax="-50">
-												<span class="price-num">$9.5</span>
-												<del>$12.0</del>
+												<span class="price-num">&#x20B9;9.5</span>
 												<span class="badge badge-danger">20% OFF</span>
 											</div>
 											<div class="content-btn" data-swiper-parallax="-60">
@@ -127,7 +126,7 @@
 							</div>
 							<div class="book-footer">
 								<div class="price">
-									<span class="price-num">$9.5</span>
+									<span class="price-num">&#x20B9;9.5</span>
 								</div>
 								<div class="rate">
 									<i class="flaticon-star text-yellow"></i>
@@ -154,7 +153,7 @@
 							</div>
 							<div class="book-footer">
 								<div class="price">
-									<span class="price-num">$5.7</span>
+									<span class="price-num">&#x20B9;5.7</span>
 								</div>
 								<div class="rate">
 									<i class="flaticon-star text-yellow"></i>
@@ -181,7 +180,7 @@
 							</div>
 							<div class="book-footer">
 								<div class="price">
-									<span class="price-num">$9.5</span>
+									<span class="price-num">&#x20B9;9.5</span>
 								</div>
 								<div class="rate">
 									<i class="flaticon-star text-yellow"></i>
@@ -208,7 +207,7 @@
 							</div>
 							<div class="book-footer">
 								<div class="price">
-									<span class="price-num">$5.7</span>
+									<span class="price-num">&#x20B9;5.7</span>
 								</div>
 								<div class="rate">
 									<i class="flaticon-star text-yellow"></i>
@@ -270,7 +269,7 @@
 							<h2 class="title">Bookland Is Best Choice For Learners</h2>
 							<p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration which don’t look even slightly believable. It Is A Long Established Fact That A Reader Will Be Distracted</p>
 						</div>
-						<a href="contact-us.html" class="btn btn-primary shadow-primary btnhover">Contact Us</a>
+						<a asp-action="Contact_Us" asp-controller="Home" class="btn btn-primary shadow-primary btnhover">Contact Us</a>
 					</div>
 				</div>
 			</div>
@@ -386,7 +385,7 @@
 						<div class="icon-content">
 							<h4 class="title">Best Bookstore</h4>
 							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-							<a href="about-us.html">Learn More <i class="fa-solid fa-angles-right"></i></a>
+							<a asp-action="About_Us" asp-controller="Home">Learn More <i class="fa-solid fa-angles-right"></i></a>
 						</div>
 					</div>
 				</div>
@@ -398,7 +397,7 @@
 						<div class="icon-content">
 							<h4 class="title">Trusted Seller</h4>
 							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-							<a href="about-us.html">Learn More <i class="fa-solid fa-angles-right"></i></a>
+							<a asp-action="About_Us" asp-controller="Home">Learn More <i class="fa-solid fa-angles-right"></i></a>
 						</div>
 					</div>
 				</div>
@@ -410,7 +409,7 @@
 						<div class="icon-content">
 							<h4 class="title">Expand Store</h4>
 							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-							<a href="about-us.html">Learn More <i class="fa-solid fa-angles-right"></i></a>
+							<a asp-action="About_Us" asp-controller="Home">Learn More <i class="fa-solid fa-angles-right"></i></a>
 						</div>
 					</div>
 				</div>
@@ -622,15 +621,15 @@
 					<div class="swiper-slide">
 						<div class="dz-card style-2 wow fadeInUp" data-wow-delay="0.1s">
 							<div class="dz-media">
-									<a href="books-detail.html"><img src="@ViewBag.ImageUrls[ViewBag.user_data.Rows.IndexOf(dr)]" alt="/"></a>
+									<a href="#"><img src="@ViewBag.ImageUrls[ViewBag.user_data.Rows.IndexOf(dr)]" alt="/"></a>
 							</div>
 							<div class="dz-info">
-									<h4 class="dz-title"><a href="books-detail.html">@dr["BookName"].ToString()</a></h4>
+									<h4 class="dz-title"><a href="#">@dr["BookName"].ToString()</a></h4>
 								<div class="dz-meta">
 									<ul class="dz-tags">
-										<li><a href="books-detail.html">BIOGRAPHY</a></li>
-										<li><a href="books-detail.html">THRILLER</a></li>
-										<li><a href="books-detail.html">HORROR</a></li>
+										<li><a href="#">BIOGRAPHY</a></li>
+										<li><a href="#">THRILLER</a></li>
+										<li><a href="#">HORROR</a></li>
 									</ul>
 								</div>
 								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p>

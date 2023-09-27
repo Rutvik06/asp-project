@@ -13,7 +13,7 @@
 				<h1>Help Desk</h1>
 				<nav aria-label="breadcrumb" class="breadcrumb-row">
 					<ul class="breadcrumb">
-						<li class="breadcrumb-item"><a href="index.html"> Home</a></li>
+						<li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home"> Home</a></li>
 						<li class="breadcrumb-item">Help Desk</li>
 					</ul>
 				</nav>
@@ -74,10 +74,10 @@
 					<aside class="side-bar sticky-top right">
 						<div class="service_menu_nav widget style-1">
 							<ul class="menu">
-								<li class="menu-item"><a href="about-us.html">About Us</a></li>
-								<li class="menu-item"><a href="privacy-policy.html">Privacy Policy</a></li>
-								<li class="menu-item active"><a href="help-desk.html">Help Desk</a></li>
-								<li class="menu-item"><a href="contact-us.html">Contact Us</a></li>
+								<li class="menu-item"><a asp-action="About_Us" asp-controller="Home">About Us</a></li>
+								<li class="menu-item"><a asp-action="Privacy" asp-controller="Home">Privacy Policy</a></li>
+								<li class="menu-item active"><a asp-action="Help_Desk" asp-controller="Home">Help Desk</a></li>
+								<li class="menu-item"><a asp-action="Contact_Us" asp-controller="Home">Contact Us</a></li>
 							</ul>
 						</div>
 					</aside>
