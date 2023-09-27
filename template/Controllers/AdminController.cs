@@ -40,12 +40,22 @@ namespace template.Controllers
         //------------------------------------dashboard get
         
         [HttpGet]
-        public IActionResult Dashboard()
+        public IActionResult Dashboard(AdminData ad)
 		{
-            if (TempData.Peek("Login_id") == null)
+
+            DataSet ds = ad.selectBook();
+            ViewBag.user_data = ds.Tables[0];
+
+            //ViewBag.image = TempData["image_name"];
+            //ViewBag.ImageUrl = Url.Content("~/image/" + TempData["image_name"]);
+            List<string> imageUrls = new List<string>();
+            foreach (DataRow dr in ds.Tables[0].Rows)
             {
-                return RedirectToAction("Index");
+                imageUrls.Add(Url.Content("~/NewBooks/" + dr["BookImage"].ToString()));
             }
+
+            ViewBag.ImageUrls = imageUrls;
+
             return View();
 		}
 

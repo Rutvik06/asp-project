@@ -12,81 +12,13 @@
 		<section class="content-inner bg-white">
 			<div class="container">
 				<div class="row">
-					<div class="col-xl-3 col-lg-4 m-b30">
-						<div class="sticky-top">
-							<div class="shop-account">
-								<div class="account-detail text-center">
-									<div class="my-image">
-										<a href="javascript:void(0);">
-											<img alt="" src="~/images/profile3.jpg">
-										</a>
-									</div>
-									<div class="account-title">
-										<div class="">
-											<h4 class="m-b5"><a href="javascript:void(0);">David Matin</a></h4>
-											<p class="m-b0"><a href="javascript:void(0);">Web developer</a></p>
-										</div>
-									</div>
-								</div>
-								<ul class="account-list">
-									<li>
-										<a asp-action="My_Profile" asp-controller="Home" class="active">
-											<i class="far fa-user" aria-hidden="true"></i>
-											<span>Profile</span>
-										</a>
-									</li>
-									<li>
-										<a asp-action="Shop_Cart" asp-controller="Home">
-											<i class="flaticon-shopping-cart-1"></i>
-											<span>My Cart</span>
-										</a>
-									</li>
-									<li>
-										<a asp-action="WishList" asp-controller="Home">
-											<i class="far fa-heart" aria-hidden="true"></i>
-											<span>Wishlist</span>
-										</a>
-									</li>
-									<li>
-										<a asp-action="BooksGridView" asp-controller="Home">
-											<i class="fa fa-briefcase" aria-hidden="true"></i>
-											<span>Shop</span>
-										</a>
-									</li>
-									<li>
-										<a asp-action="Services" asp-controller="Home">
-											<i class="far fa-bell" aria-hidden="true"></i>
-											<span>Services</span>
-										</a>
-									</li>
-									<li>
-										<a asp-action="Help_Desk" asp-controller="Home">
-											<i class="far fa-id-card" aria-hidden="true"></i>
-											<span>Help Desk</span>
-										</a>
-									</li>
-									<li>
-										<a asp-action="Privacy" asp-controller="Home">
-											<i class="fa fa-key" aria-hidden="true"></i>
-											<span>Privacy Policy</span>
-										</a>
-									</li>
-									<li>
-										<a asp-action="Logout" asp-controller="Home">
-											<i class="fas fa-sign-out-alt" aria-hidden="true"></i>
-											<span>Log Out</span>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
+					
 					<div class="col-xl-9 col-lg-8 m-b30">
 						<div class="shop-bx shop-profile">
 							<div class="shop-bx-title clearfix">
 								<h5 class="text-uppercase">Basic Information</h5>
 							</div>
-							<form method="post">
+							<form method="post" enctype="multipart/form-data">
 								<div class="row m-b30">
 									<div class="col-lg-6 col-md-6">
 										<div class="mb-3">
@@ -115,8 +47,8 @@
 									<div class="col-lg-12 col-md-12">
 
 										<div class="mb-3">
-											<label for="exampleFormControlTextarea" class="form-label">Description:</label>
-											<textarea class="form-control" id="exampleFormControlTextarea" rows="5">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s.</textarea>
+											<label for="exampleFormControlTextarea" class="form-label">Profile Image:</label>
+											<input type="file" name="formfile" class="form-control" id="exampleFormControlTextarea" />
 										</div>
 									</div>
 								</div>

@@ -12,8 +12,10 @@ namespace template.Models
         public string BookPrice { get; set; }
         public string BookImg { get; set;}
 		public string OrderStatus { get; set; }
+		public string PaymentStatus { get;set; }
 
-        SqlConnection con = new SqlConnection("Data Source=.\\SQLEXPRESS;database=project;User Id=sa;pwd=12345");
+
+		SqlConnection con = new SqlConnection("Data Source=.\\SQLEXPRESS;database=project;User Id=sa;pwd=12345");
 		//public int AddtoCartData(string UserId, string BookName, string BookPrice,string BookQuantity, string BookImg,DateTime AddedOn)
 		//{
 		//    // Use parameterized query to prevent SQL injection
@@ -27,10 +29,10 @@ namespace template.Models
 		//    return cmd.ExecuteNonQuery();
 
 		//}
-		public int AddtoCartData(string userId,string BookName, string BookPrice, string BookQuantity, string BookImg,string OrderStatus)
+		public int AddtoCartData(string userId,string BookName, string BookPrice, string BookQuantity, string BookImg,string OrderStatus, string PaymentStatus)
 		{
-			SqlCommand cmd = new SqlCommand("INSERT INTO [dbo].[Add_To_Cart] (userId,BookName, BookPrice, BookImg, BookQuantity,OrderStatus) " +
-											"VALUES ('"+ userId + "','"+BookName+"',  '"+BookPrice+"', '"+BookImg+"', '"+BookQuantity+"','"+OrderStatus+"')", con);
+			SqlCommand cmd = new SqlCommand("INSERT INTO [dbo].[Add_To_Cart] (userId,BookName, BookPrice, BookImg, BookQuantity,OrderStatus,PaymentStatus) " +
+											"VALUES ('"+ userId + "','"+BookName+"',  '"+BookPrice+"', '"+BookImg+"', '"+BookQuantity+"','"+OrderStatus+"','"+ PaymentStatus + "')", con);
 			con.Open();
 			return cmd.ExecuteNonQuery();
 		}
@@ -76,6 +78,33 @@ namespace template.Models
 			con.Open();
 			return cmd.ExecuteNonQuery();
 		}
+
+		public DataSet selectUser(string userId)
+		{
+			SqlCommand cmd = new SqlCommand("select * from [dbo].[Add_To_Cart] where userId='" + userId + "'",con);
+			SqlDataAdapter da = new SqlDataAdapter(cmd);
+			DataSet ds = new DataSet();
+			da.Fill(ds);
+			return ds;
+		}
+
+		public DataSet selectUserWithJoin(int userId)
+		{
+			SqlCommand cmd = new SqlCommand("SELECT c.* FROM [dbo].[Add_To_Cart] c INNER JOIN [dbo].[User_Login] l ON c.userId = l.id WHERE l.id = '"+userId+"'", con);
+			SqlDataAdapter da = new SqlDataAdapter(cmd);
+			DataSet ds = new DataSet();
+			da.Fill(ds);
+			return ds;
+		}
+		public DataSet PaymentStatusUpdate(string userId, string PaymentStatus)
+		{
+			SqlCommand cmd = new SqlCommand("UPDATE [dbo].[Add_To_Cart] SET PaymentStatus = '" + PaymentStatus + "' WHERE userId = '" + userId + "' ", con);
+			SqlDataAdapter da = new SqlDataAdapter(cmd);
+			DataSet ds = new DataSet();
+			da.Fill(ds);
+			return ds;
+		}
+		
 
 
 

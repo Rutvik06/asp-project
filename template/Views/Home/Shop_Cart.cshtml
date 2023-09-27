@@ -19,10 +19,32 @@
 			@(((int)dr["BookQuantity"]) * ((int)dr["BookPrice"])) <!-- Calculate total price -->
 		</td>
 		<td>
-			<a href="@Url.Action("RemoveCartItem", "Home", new { bookName = dr["BookName"].ToString()>remove</a>
+			<a href="@Url.Action("RemoveCartItem", "Home", new { bookName = dr["BookName"].ToString()})">remove</a>
 		</td>
 	</tr>
 } *@
+@* @ViewBag.Cart_Data *@
+@* <
+	div>
+	@ViewBag.loginid
+</div>
+<div>
+	@if (ViewBag.UserIds != null && ViewBag.UserIds.Count > 0)
+	{
+		<div>User IDs:</div>
+		<ul>
+			@foreach (var userId in ViewBag.UserIds)
+			{
+				<li>@userId</li>
+			}
+		</ul>
+	}
+	else
+	{
+		<div>No user data found</div>
+	}
+</div> *@
+
 
 
 <div class="page-content">
@@ -120,5 +142,5 @@
 	</section>
 	<!-- contact area End-->
 
-</div>
+</div> 
 

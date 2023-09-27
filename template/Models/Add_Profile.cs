@@ -17,12 +17,13 @@ namespace template.Models
 		public string address { get; set; }
 		public string city { get; set; }
 		public int userId { get; set; }
+		public string profileimg { get; set; }
 
 		SqlConnection con = new SqlConnection("Data Source=.\\SQLEXPRESS;database=project;User Id=sa;pwd=12345");
-		public int AddNewProfile(string name, string profession, string language, int age, string contact, string email, string country, string pincode, string address, string city,string userId)
+		public int AddNewProfile(string name, string profession, string language, int age, string contact, string email, string country, string pincode, string address, string city,string userId,string profileimg)
 		{
-			SqlCommand cmd = new SqlCommand("INSERT INTO [dbo].[Add_Profile] (name, profession, language, age, contact, email,country,pincode,address,city,userId) " +
-											"VALUES ('" + name + "', '" + profession + "', '" + language + "', '" + age + "', '" + contact + "', '" + email + "','" + country + "','" + pincode + "','" + address + "','" + city + "','"+userId+"')", con);
+			SqlCommand cmd = new SqlCommand("INSERT INTO [dbo].[Add_Profile] (name, profession, language, age, contact, email,country,pincode,address,city,userId,profileimg) " +
+											"VALUES ('" + name + "', '" + profession + "', '" + language + "', '" + age + "', '" + contact + "', '" + email + "','" + country + "','" + pincode + "','" + address + "','" + city + "','"+userId+"','"+ profileimg + "')", con);
 			con.Open();
 			return cmd.ExecuteNonQuery();
 		}
@@ -32,7 +33,6 @@ namespace template.Models
 			SqlDataAdapter da = new SqlDataAdapter(cmd);
 			DataSet ds = new DataSet();
 			da.Fill(ds);
-
 			return ds;
 		}
 	}

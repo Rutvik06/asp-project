@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Cors.Infrastructure;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using System.Data;
 using System.Diagnostics;
 using System.Net;
+using System.Net.Http.Headers;
 using System.Security.Claims;
 using template.Models;
 
@@ -17,11 +19,22 @@ namespace template.Controllers
         {
             _logger = logger;
         }
-
-        public IActionResult Index()
+		[HttpGet]
+        public IActionResult Index(ViewBooks vb)
         {
-			
-            return View();
+			DataSet ds = vb.selectNewBook();
+			ViewBag.user_data = ds.Tables[0];
+
+			//ViewBag.image = TempData["image_name"];
+			//ViewBag.ImageUrl = Url.Content("~/image/" + TempData["image_name"]);
+			List<string> imageUrls = new List<string>();
+			foreach (DataRow dr in ds.Tables[0].Rows)
+			{
+				imageUrls.Add(Url.Content("~/NewBooks/" + dr["BookImage"].ToString()));
+			}
+
+			ViewBag.ImageUrls = imageUrls;
+			return View();
         }
 		[HttpGet]
 		public IActionResult Login()
@@ -41,32 +54,41 @@ namespace template.Controllers
 			ViewBag.data = ds.Tables[0];
 			foreach (System.Data.DataRow dr in ViewBag.data.Rows)
 			{
-				TempData["UserLogin_id"] = dr["id"].ToString();
+				DataRow userRow = ds.Tables[0].Rows[0];
+				TempData["UserLogin_id"] = userRow["id"].ToString();
+				//TempData["UserEmail"] = userRow["email"].ToString();
+				//TempData["UserName"] = userRow["name"].ToString();
 				return RedirectToAction("Index");
 			}
 			return RedirectToAction("Login"); // Change this line to RedirectToAction("Index");
 		}
 
-		public IActionResult Index2()
-		{
-			return View();
-		}
+		
 		[HttpGet]
 		public IActionResult WishList(WishList wl)
 		{
-			DataSet ds = wl.SelectData();
-			ViewBag.user_data = ds.Tables[0];
-
-			//ViewBag.image = TempData["image_name"];
-			//ViewBag.ImageUrl = Url.Content("~/image/" + TempData["image_name"]);
-			List<string> imageUrls = new List<string>();
-			foreach (DataRow dr in ds.Tables[0].Rows)
+            if (TempData.Peek("UserLogin_id") != null)
 			{
-				imageUrls.Add(Url.Content("~/NewBooks/" + dr["BookImg"].ToString()));
-			}
+                int userId = int.Parse((string)TempData.Peek("UserLogin_id"));
+                DataSet ds = wl.SelectData(userId);
+                ViewBag.user_data = ds.Tables[0];
 
-			ViewBag.ImageUrls = imageUrls;
-			return View();
+                //ViewBag.image = TempData["image_name"];
+                //ViewBag.ImageUrl = Url.Content("~/image/" + TempData["image_name"]);
+                List<string> imageUrls = new List<string>();
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    imageUrls.Add(Url.Content("~/NewBooks/" + dr["BookImg"].ToString()));
+                }
+
+                ViewBag.ImageUrls = imageUrls;
+                return View();
+            }
+			else
+			{
+				return RedirectToAction("Login");
+			}
+                
 		}
 		[HttpGet]
 		public IActionResult AddWishList()
@@ -76,27 +98,40 @@ namespace template.Controllers
 		[HttpPost]
 		public IActionResult AddWishList(WishList wl, ViewUserBooks vub, int id)
 		{
-			DataSet ds = vub.selectUserSideBookSingleBook(id);
-			if (ds.Tables[0].Rows.Count > 0)
+			if (TempData.Peek("UserLogin_id") != null)
 			{
-				DataRow bookRow = ds.Tables[0].Rows[0];
-				string bookName = bookRow["BookName"].ToString();
-				string bookPrice = bookRow["BookPrice"].ToString();
-				string bookImg = bookRow["BookImage"].ToString();
-				//string bookImg=TempData["BookImage"] as string;
-				//string bookImg = ViewBag.ImageUrls[0]; // Corrected this line to get the image URL from ViewBag
-				wl.AddToWishList(bookName, bookPrice, bookImg);
+				DataSet ds = vub.selectUserSideBookSingleBook(id);
+				if (ds.Tables[0].Rows.Count > 0)
+				{
+					DataRow bookRow = ds.Tables[0].Rows[0];
+					string bookName = bookRow["BookName"].ToString();
+					string bookPrice = bookRow["BookPrice"].ToString();
+					string bookImg = bookRow["BookImage"].ToString();
+					string userId = TempData.Peek("UserLogin_id").ToString();
 
-				return RedirectToAction("BooksGridView");
+					//string bookImg=TempData["BookImage"] as string;
+					//string bookImg = ViewBag.ImageUrls[0]; // Corrected this line to get the image URL from ViewBag
+					wl.AddToWishList(userId,bookName, bookPrice, bookImg);
+
+					return RedirectToAction("BooksGridView");
+				}
+				else
+				{
+					return RedirectToAction("ErrorPage");
+				}
 			}
 			else
 			{
-				return RedirectToAction("BooksGridView");
+				return RedirectToAction("Login");
 			}
-
 			return View();
 		}
 
+		public IActionResult deleteWishList(WishList wl,int id)
+		{
+			wl.deleteBook(id);
+			return RedirectToAction("WishList");
+		}
 
 		//------------------------------------------------------user side single book
 		[HttpGet]
@@ -135,30 +170,36 @@ namespace template.Controllers
 		{
 			if (TempData.Peek("UserLogin_id") != null)
 			{
-				DataSet ds = atc.selectWithUserId();
-				ViewBag.Cart_Data = ds.Tables[0];
-				List<string> imageUrls = new List<string>();
-				foreach (DataRow dr in ds.Tables[0].Rows)
-				{
-					imageUrls.Add(Url.Content("~/NewBooks/" + dr["BookImg"].ToString()));
+				int userId = int.Parse((string)TempData.Peek("UserLogin_id"));
+				DataSet ds = atc.selectUserWithJoin(userId);
+				if (ds.Tables[0].Rows.Count > 0) {
+					ViewBag.Cart_Data = ds.Tables[0];
+					//ViewBag.Cart_ID = ds;
+					List<string> imageUrls = new List<string>();
+					foreach (DataRow dr in ds.Tables[0].Rows)
+					{
+						imageUrls.Add(Url.Content("~/NewBooks/" + dr["BookImg"].ToString()));
+					}
+
+					ViewBag.ImageUrls = imageUrls;
+					decimal orderSubtotal = 0; // Initialize order subtotal
+					foreach (DataRow dr in ds.Tables[0].Rows)
+					{
+						// Calculate the subtotal for each item and add it to the order subtotal
+						decimal itemSubtotal = Convert.ToDecimal(dr["BookPrice"]) * Convert.ToInt32(dr["BookQuantity"]);
+						orderSubtotal += itemSubtotal;
+					}
+
+					// Calculate shipping charge and total
+					decimal shippingCharge = 50; // You can calculate the shipping charge as needed
+					decimal overallTotal = orderSubtotal + shippingCharge;
+
+					ViewBag.OrderSubtotal = orderSubtotal;
+					ViewBag.ShippingCharge = shippingCharge;
+					ViewBag.OverallTotal = overallTotal;
 				}
-
-				ViewBag.ImageUrls = imageUrls;
-				decimal orderSubtotal = 0; // Initialize order subtotal
-				foreach (DataRow dr in ds.Tables[0].Rows)
-				{
-					// Calculate the subtotal for each item and add it to the order subtotal
-					decimal itemSubtotal = Convert.ToDecimal(dr["BookPrice"]) * Convert.ToInt32(dr["BookQuantity"]);
-					orderSubtotal += itemSubtotal;
-				}
-
-				// Calculate shipping charge and total
-				decimal shippingCharge = 50; // You can calculate the shipping charge as needed
-				decimal overallTotal = orderSubtotal + shippingCharge;
-
-				ViewBag.OrderSubtotal = orderSubtotal;
-				ViewBag.ShippingCharge = shippingCharge;
-				ViewBag.OverallTotal = overallTotal;
+				else { return RedirectToAction("EmptyCartPage"); }
+					
 			}
 			else
 			{
@@ -185,13 +226,24 @@ namespace template.Controllers
 		}
 		//-------------------------------------------------my profile post
 		[HttpPost]
-		public IActionResult My_Profile(Add_Profile ap)
+		public async Task<IActionResult> My_Profile(Add_Profile ap, IFormFile formFile)
 		{
 			if (TempData.Peek("UserLogin_id") != null) {
 				string userId = TempData.Peek("UserLogin_id").ToString();
+				var image = ContentDispositionHeaderValue.Parse(formFile.ContentDisposition).FileName.Trim();
+				var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "NewBooks", formFile.FileName);
 
-				ap.AddNewProfile(ap.name, ap.profession, ap.language, ap.age, ap.contact, ap.email, ap.country, ap.pincode, ap.address, ap.city,userId);
-				return RedirectToAction("View_Profile");
+				using (System.IO.Stream stream = new FileStream(path, FileMode.Create))
+				{
+					await formFile.CopyToAsync(stream);
+				}
+				string serializableString = image.ToString();
+				TempData["image_name"] = serializableString;
+
+				//TempData["image_name"] = image;
+				ap.profileimg = image.ToString();
+				ap.AddNewProfile(ap.name, ap.profession, ap.language, ap.age, ap.contact, ap.email, ap.country, ap.pincode, ap.address, ap.city,userId,ap.profileimg);
+				return RedirectToAction("My_Profile");
 			}
 			else
 			{
@@ -246,20 +298,14 @@ namespace template.Controllers
 			}
 			return View();
 		}
-		//----------------------------------------------------update profile post
+		
 		[HttpPost]
-		public IActionResult Update_Profile(Add_Profile ap)
+		public IActionResult Contact_Us(ContactUs cu)
 		{
-			string userId = TempData.Peek("UserLogin_id").ToString();
-			ap.AddNewProfile(ap.name, ap.profession, ap.language, ap.age, ap.contact, ap.email, ap.country, ap.pincode, ap.address, ap.city,userId);
-			return RedirectToAction("My_Profile");
+			cu.AddContact(cu.fullname, cu.email, cu.phone, cu.message);
+			return RedirectToAction("Index");
 		}
-		//--------------------------------------------------update profile get 
 		[HttpGet]
-		public IActionResult Update_Profile(int a = 0)
-		{
-			return View();
-		}
 		public IActionResult Contact_Us()
 		{
 			return View();
@@ -345,6 +391,7 @@ namespace template.Controllers
 					string bookImg = bookRow["BookImage"].ToString();
 					string userId = TempData.Peek("UserLogin_id").ToString();
 					string orderstatus = "pending".ToString();
+					string paymentstatus = "pending".ToString();
 					AddtoCart atc = new AddtoCart();
 
 					// Check if the book already exists in the cart for the user
@@ -362,7 +409,7 @@ namespace template.Controllers
 					else
 					{
 						// Book does not exist in the cart, add it
-						atc.AddtoCartData(userId, bookName, bookPrice, bookQuantity, bookImg,orderstatus);
+						atc.AddtoCartData(userId, bookName, bookPrice, bookQuantity, bookImg,orderstatus,paymentstatus);
 					}
 
 					return RedirectToAction("BooksGridView");
@@ -381,8 +428,9 @@ namespace template.Controllers
         [HttpGet]
         public IActionResult OrderPage(AddtoCart atc)
         {
-            DataSet ds = atc.selectWithUserId();
-            ViewBag.OrderData = ds.Tables[0];
+			int userId = int.Parse((string)TempData.Peek("UserLogin_id"));
+			DataSet ds = atc.selectUserWithJoin(userId);
+			ViewBag.OrderData = ds.Tables[0];
             List<string> imageUrls = new List<string>();
             foreach (DataRow dr in ds.Tables[0].Rows)
             {
@@ -408,17 +456,32 @@ namespace template.Controllers
             return View();
         }
         [HttpPost]
-		public IActionResult OrderPage(CardDetails cd)
+		public IActionResult OrderPage(CardDetails cd , AddtoCart atc)
 		{
-			cd.AddCardDetails(cd.CardName, cd.CardNum, cd.CardVerifyNum);
-			return RedirectToAction("ViewOrders");
+			string paymentstatus = "completed";
+
+			try
+			{
+				string userId = TempData.Peek("UserLogin_id").ToString();
+
+				atc.PaymentStatusUpdate(userId, paymentstatus);
+				cd.AddCardDetails(cd.CardName, cd.CardNum, cd.CardVerifyNum);
+				return RedirectToAction("ViewOrders");
+			}
+			catch (Exception ex)
+			{
+				// Log the exception for debugging
+				Console.WriteLine("Error updating payment status: " + ex.Message);
+				return RedirectToAction("ErrorPage"); // Redirect to an error page
+			}
 		}
 		[HttpGet]
 		public IActionResult OrderHistory(AddtoCart atc)
 		{
 			if (TempData.Peek("UserLogin_id") != null)
 			{
-				DataSet ds = atc.selectWithUserId();
+				int userId = int.Parse((string)TempData.Peek("UserLogin_id"));
+				DataSet ds = atc.selectUserWithJoin(userId);
 				ViewBag.OrderData = ds.Tables[0];
 				List<string> imageUrls = new List<string>();
 				foreach (DataRow dr in ds.Tables[0].Rows)
@@ -437,7 +500,8 @@ namespace template.Controllers
 		[HttpGet]
 		public IActionResult ViewOrders(AddtoCart atc)
 		{
-			DataSet ds = atc.selectWithUserId();
+			int userId = int.Parse((string)TempData.Peek("UserLogin_id"));
+			DataSet ds = atc.selectUserWithJoin(userId);
 			ViewBag.OrderData = ds.Tables[0];
 			List<string> imageUrls = new List<string>();
 			foreach (DataRow dr in ds.Tables[0].Rows)
@@ -449,6 +513,14 @@ namespace template.Controllers
 			return View();
 		}
 		public IActionResult BlogDetail()
+		{
+			return View();
+		}
+		public IActionResult EmptyCartPage()
+		{
+			return View();	
+		}
+		public IActionResult ErrorPage()
 		{
 			return View();
 		}

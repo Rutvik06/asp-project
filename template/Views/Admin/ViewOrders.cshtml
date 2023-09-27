@@ -46,7 +46,9 @@
                                         <th>BookName</th>
                                         <th>Book Quantity</th>
                                         <th>Book Price</th>
-                                        <th>OrderStatus</th>
+                                        <th>Order Status</th>
+                                        <th>Payment Status</th>
+                                        <th>userID</th>
                                         <th>Action for order</th>
                                     </tr>
                                 </thead>
@@ -61,6 +63,9 @@
                                             <td>@dr["BookQuantity"].ToString()</td>
                                             <td>@dr["BookPrice"].ToString()</td>
                                             <td>@dr["OrderStatus"].ToString()</td>
+                                            <td>@dr["PaymentStatus"].ToString()</td>
+                                            <td>@dr["userId"].ToString()</td>
+
                                         
                                         <td>
                                             <div class="flex align-items-center list-user-action">

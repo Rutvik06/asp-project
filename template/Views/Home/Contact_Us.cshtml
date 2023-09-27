@@ -1,6 +1,8 @@
 ﻿
 @{
     ViewData["Title"] = "Contact_Us";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+
 }
 
 <div class="page-content">
@@ -42,7 +44,7 @@
 								</div>
 								<div class="icon-content">
 									<h5 class=" dz-tilte text-white">Our Address</h5>
-									<p>1247/Plot No. 39, 15th Phase, Huab Colony, Kukatpally, Hyderabad</p>
+									<p>1247/Plot No. 39, 15th Phase, Huab Colony, Surat, Gujarat</p>
 								</div>
 							</li>
 							<li class="icon-bx-wraper text-white left m-b30">
@@ -65,27 +67,23 @@
 							<h6 class="sub-title text-primary">CONTACT US</h6>
 							<h3 class="title m-b20">Get In Touch With Us</h3>
 						</div>
-						<form class="dz-form dzForm" method="POST" action="https://bookland.dexignzone.com/xhtml/script/contact_smtp.php">
-							<input type="hidden" class="form-control" name="dzToDo" value="Contact">
-							<div class="dzFormMsg"></div>
+						<form  method="post">
+							
 							<div class="input-group">
-								<input required type="text" class="form-control" name="dzName" placeholder="Full Name">
-							</div>
-							<div class="input-group">
-								<input required type="text" class="form-control" name="dzEmail" placeholder="Email Adress">
+								<input required type="text" class="form-control" name="fullname" placeholder="Full Name">
 							</div>
 							<div class="input-group">
-								<input required type="text" class="form-control" name="dzPhoneNumber" placeholder="Phone No.">
+								<input required type="text" class="form-control" name="email" placeholder="Email Adress">
 							</div>
 							<div class="input-group">
-								<textarea required name="dzMessage" rows="5" class="form-control">Message</textarea>
+								<input required type="text" class="form-control" name="phone" placeholder="Phone No.">
 							</div>
-							<div class="mb-3">
-								<div class="g-recaptcha" data-sitekey="6LefsVUUAAAAADBPsLZzsNnETChealv6PYGzv3ZN" data-callback="verifyRecaptchaCallback" data-expired-callback="expiredRecaptchaCallback"></div>
-								<input class="form-control d-none" style="display:none;" data-recaptcha="true" required data-error="Please complete the Captcha">
+							<div class="input-group">
+								<textarea  name="message" rows="5" class="form-control">Message</textarea>
 							</div>
+							
 							<div>
-								<button name="submit" type="submit" value="submit" class="btn w-100 btn-primary btnhover">SUBMIT</button>
+								<button type="submit"  class="btn w-100 btn-primary btnhover">SUBMIT</button>
 							</div>
 						</form>
 					</div>
