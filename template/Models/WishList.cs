@@ -18,7 +18,7 @@ namespace template.Models
 			con.Open();
 			return cmd.ExecuteNonQuery();
 		}
-
+			
 		public DataSet SelectData(int userId)
 		{
 			SqlCommand cmd = new SqlCommand("SELECT c.* FROM [dbo].[WishList] c INNER JOIN [dbo].[User_Login] l ON c.userId = l.id WHERE l.id = '" + userId + "'", con);

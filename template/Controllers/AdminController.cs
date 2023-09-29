@@ -92,7 +92,7 @@ namespace template.Controllers
             //TempData["image_name"] = image;
             ab.BookImage = image.ToString();
             ab.AddNewBook(ab.BookName, ab.BookCategory,ab.BookPrice,ab.BookDescription,ab.BookAuthor,ab.BookImage);
-            return RedirectToAction("AddBooks");
+            return RedirectToAction("ViewBooks");
         }
 
         //--------------------------------------------- view books get
@@ -162,7 +162,7 @@ namespace template.Controllers
 			// Update book data using vb object
 			vb.updateBook(vb.id, vb.BookName, vb.BookCategory, vb.BookPrice, vb.BookDescription, vb.BookAuthor, vb.BookImage);
 
-			return RedirectToAction("UpdateBookData");
+			return RedirectToAction("ViewBooks");
 		}
 
 
@@ -183,7 +183,7 @@ namespace template.Controllers
             string category = ac.category;
             string description = ac.description;
             ac.AddNewCategory(category,description);
-            return RedirectToAction("AddCategory");
+            return RedirectToAction("ViewCategory");
         }
 
         //----------------------------------------------delete new category
@@ -203,7 +203,7 @@ namespace template.Controllers
             string description = ac.description;
 
             ac.updateNewCategory(ac.id,category,description);
-            return RedirectToAction("UpdateCategory");
+            return RedirectToAction("ViewCategory");
         }
         //-----------------------------------------------update category get
         [HttpGet]
@@ -237,7 +237,7 @@ namespace template.Controllers
             //TempData["image_name"] = image;
             Aab.AuthorImg = image.ToString();
             Aab.AddNewBook(Aab.AuthorName, Aab.AuthorDescription, Aab.AuthorEmail, Aab.AuthorImg);          
-            return RedirectToAction("AddAuthor");
+            return RedirectToAction("ViewAuthor");
         }
         //-------------------------------------------------- add author get
 
@@ -290,7 +290,7 @@ namespace template.Controllers
             //TempData["image_name"] = image;
             Aab.AuthorImg = image.ToString();
             Aab.updateAuthor(Aab.id,Aab.AuthorName, Aab.AuthorDescription, Aab.AuthorEmail, Aab.AuthorImg);
-            return RedirectToAction("AddAuthor");
+            return RedirectToAction("ViewAuthor");
         }
         //-----------------------------------------------------author update get
         [HttpGet]
@@ -349,7 +349,7 @@ namespace template.Controllers
         public IActionResult UpdateStatus(Order od)
         {
             od.updateStatus(od.id, od.OrderStatus);
-            return RedirectToAction("UpdateStatus");
+            return RedirectToAction("ViewOrders");
         }
         
         //----------------------------------------------logout
