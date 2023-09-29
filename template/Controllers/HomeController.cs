@@ -19,7 +19,15 @@ namespace template.Controllers
         {
             _logger = logger;
         }
-		[HttpGet]
+        public IActionResult MyAction()
+        {
+            ViewData["UserName"] = TempData["UserEmail"];
+            ViewData["ItemCount"] = 10;
+
+            return View();
+        }
+
+        [HttpGet]
         public IActionResult Index(ViewBooks vb)
         {
 			DataSet ds = vb.selectNewBook();
@@ -56,8 +64,6 @@ namespace template.Controllers
 			{
 				DataRow userRow = ds.Tables[0].Rows[0];
 				TempData["UserLogin_id"] = userRow["id"].ToString();
-				//TempData["UserEmail"] = userRow["email"].ToString();
-				//TempData["UserName"] = userRow["name"].ToString();
 				return RedirectToAction("Index");
 			}
 			return RedirectToAction("Login"); // Change this line to RedirectToAction("Index");
