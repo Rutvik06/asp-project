@@ -43,7 +43,7 @@
                             <div class="form-group">
                                 <label>Book Author:</label>
                                 <select class="form-control" id="exampleFormControlSelect2" name="BookAuthor" value="@Model.Tables[0].Rows[0]["BookAuthor"]">
-                                    <option selected="" disabled="" value="@Model.Tables[0].Rows[0]["BookAuthor"]">@Model.Tables[0].Rows[0]["BookAuthor"]</option>
+                                    <option selected disabled value="@Model.Tables[0].Rows[0]["BookAuthor"]">@Model.Tables[0].Rows[0]["BookAuthor"]</option>
                                     @{
                                         var Author = new HashSet<string>();
                                         foreach (DataRow row in ViewBag.AuthorData.Tables[0].Rows)

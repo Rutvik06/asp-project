@@ -79,18 +79,25 @@ namespace template.Controllers
         [HttpPost]
         public async Task<IActionResult> AddBooks(AddBook ab,IFormFile formFile) 
         {
-            var image = ContentDispositionHeaderValue.Parse(formFile.ContentDisposition).FileName.Trim();
-            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "NewBooks", formFile.FileName);
-
-            using (System.IO.Stream stream = new FileStream(path, FileMode.Create))
+            if (formFile != null)
             {
-                await formFile.CopyToAsync(stream);
-            }
-            string serializableString = image.ToString();
-            TempData["image_name"] = serializableString;
+                var image = ContentDispositionHeaderValue.Parse(formFile.ContentDisposition).FileName.Trim();
+                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "NewBooks", formFile.FileName);
 
-            //TempData["image_name"] = image;
-            ab.BookImage = image.ToString();
+                using (System.IO.Stream stream = new FileStream(path, FileMode.Create))
+                {
+                    await formFile.CopyToAsync(stream);
+                }
+                string serializableString = image.ToString();
+                TempData["image_name"] = serializableString;
+
+                //TempData["image_name"] = image;
+                ab.BookImage = image.ToString();
+            }
+            else
+            {
+                return RedirectToAction("ErrorPage");
+            }
             ab.AddNewBook(ab.BookName, ab.BookCategory,ab.BookPrice,ab.BookDescription,ab.BookAuthor,ab.BookImage);
             return RedirectToAction("ViewBooks");
         }
@@ -158,6 +165,11 @@ namespace template.Controllers
 
 				vb.BookImage = image.ToString();
 			}
+                else
+            {
+                return RedirectToAction("ErrorPage");
+            }
+
 
 			// Update book data using vb object
 			vb.updateBook(vb.id, vb.BookName, vb.BookCategory, vb.BookPrice, vb.BookDescription, vb.BookAuthor, vb.BookImage);
@@ -224,20 +236,28 @@ namespace template.Controllers
         [HttpPost]
         public async Task<IActionResult> AddAuthor(AddAuthor Aab,IFormFile formFile)
         {
-            var image = ContentDispositionHeaderValue.Parse(formFile.ContentDisposition).FileName.Trim();
-            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "NewAuthor", formFile.FileName);
-
-            using (System.IO.Stream stream = new FileStream(path, FileMode.Create))
+            if(formFile != null)
             {
-                await formFile.CopyToAsync(stream);
-            }
-            string serializableString = image.ToString();
-            TempData["image_name"] = serializableString;
+                var image = ContentDispositionHeaderValue.Parse(formFile.ContentDisposition).FileName.Trim();
+                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "NewAuthor", formFile.FileName);
 
-            //TempData["image_name"] = image;
-            Aab.AuthorImg = image.ToString();
+                using (System.IO.Stream stream = new FileStream(path, FileMode.Create))
+                {
+                    await formFile.CopyToAsync(stream);
+                }
+                string serializableString = image.ToString();
+                TempData["image_name"] = serializableString;
+
+                //TempData["image_name"] = image;
+                Aab.AuthorImg = image.ToString();
+            }
+            else
+            {
+                return RedirectToAction("ErrorPage");
+            }
             Aab.AddNewBook(Aab.AuthorName, Aab.AuthorDescription, Aab.AuthorEmail, Aab.AuthorImg);          
             return RedirectToAction("ViewAuthor");
+           
         }
         //-------------------------------------------------- add author get
 
@@ -277,6 +297,9 @@ namespace template.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateAuthor(AddAuthor Aab, IFormFile formFile)
         {
+            if (formFile != null)
+            {
+
             var image = ContentDispositionHeaderValue.Parse(formFile.ContentDisposition).FileName.Trim();
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "NewAuthor", formFile.FileName);
 
@@ -286,9 +309,14 @@ namespace template.Controllers
             }
             string serializableString = image.ToString();
             TempData["image_name"] = serializableString;
+            Aab.AuthorImg = image.ToString();
+            }
+            else
+            {
+                return RedirectToAction("ErrorPage");
+            }
 
             //TempData["image_name"] = image;
-            Aab.AuthorImg = image.ToString();
             Aab.updateAuthor(Aab.id,Aab.AuthorName, Aab.AuthorDescription, Aab.AuthorEmail, Aab.AuthorImg);
             return RedirectToAction("ViewAuthor");
         }
@@ -358,5 +386,11 @@ namespace template.Controllers
             TempData.Clear();
             return RedirectToAction("Index");
         }
-	}
+        public IActionResult ErrorPage()
+        {
+            ViewBag.message = "there is an error";
+            return View();
+        }
+
+    }
 }
